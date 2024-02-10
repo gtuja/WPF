@@ -7,6 +7,55 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-    
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+      <Menu Grid.Row="0" Margin="5">
+        <MenuItem Header="_Edit">
+          <MenuItem Command="Copy"/>
+          <MenuItem Command="Cut"/>
+          <MenuItem Command="Paste"/>
+        </MenuItem>
+        <MenuItem Header="_Font">
+          <MenuItem Header="_Bold" IsCheckable="True"/>
+                    <!-- Checked="Bold_Checked"/> -->
+                    <!-- Unchecked="Bold_Unchecked"/> -->
+          <MenuItem Header="_Italic" IsCheckable="True"/>
+                    <!-- Checked="Italic_Checked"/> -->
+                    <!-- Unchecked="Italic_Unchecked"/> -->
+          <Separator/>
+          <MenuItem Header="I_ncrease Font Size"/>
+                    <!-- Click="IncreaseFont_Click"/> -->
+          <MenuItem Header="_Decrease Font Size"/>
+                    <!-- Click="DecreaseFont_Click"/> -->
+        </MenuItem>
+      </Menu>
+      <TabControl Grid.Row="1" Margin="5">
+        <TabItem>
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Ellipse Width="10" Height="10" Fill="DarkGray" Margin="2"/>
+              <TextBlock>Main</TextBlock>
+            </StackPanel>
+          </TabItem.Header>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto"/>
+              <RowDefinition Height="20"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="5">
+              <Button x:Name="btnExecute" Content="Execute" Width="auto"/>
+            </StackPanel>
+            <ProgressBar Grid.Row="1" x:Name="pbProgress" Margin="5"/>
+            <RichTextBox Grid.Row="2" x:Name="rtbLog" Margin="5"/>
+          </Grid>
+        </TabItem>
+        <TabItem Header="Setting">
+        </TabItem>
+      </TabControl>
+      <Label x:Name="lblStatus" Content="Status......" Grid.Row="2" Margin="5"/>
     </Grid>
 </Window>
