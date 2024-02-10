@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Util;
 
 namespace WPF;
 
@@ -20,5 +21,15 @@ public partial class MainWindow : Window
   {
     InitializeComponent();
     lblStatus.Content = @"Status?";
+  }
+
+  public void vidBtnExecuteClick(
+    object objSender,
+    RoutedEventArgs reaEvent
+  )
+  {
+    Util.UI.vidAppendLog(rtbLog, @"Test....................");
+    Util.UI.vidAppendLog(rtbLog, Util.UI.strOpenFileDialog(@"Open File", @"Document", @"Text File|*.txt|" + @"Xml File|*.xml|" + @"Xlsx File|*.xlsx|" + "All Files|*.*"));
+    Util.UI.vidAppendLog(rtbLog, Util.UI.strOpenFolderDialog(@"Open Folder"));
   }
 }

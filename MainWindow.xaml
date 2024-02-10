@@ -43,14 +43,16 @@
           <Grid>
             <Grid.RowDefinitions>
               <RowDefinition Height="auto"/>
-              <RowDefinition Height="20"/>
+              <RowDefinition Height="25"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="5">
-              <Button x:Name="btnExecute" Content="Execute" Width="auto"/>
+              <Button x:Name="btnExecute" Content="Execute" Click="vidBtnExecuteClick"/>
             </StackPanel>
             <ProgressBar Grid.Row="1" x:Name="pbProgress" Margin="5"/>
-            <RichTextBox Grid.Row="2" x:Name="rtbLog" Margin="5"/>
+            <RichTextBox Grid.Row="2" x:Name="rtbLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" Margin="5">
+            </RichTextBox>
+          <!-- <RichTextBox Grid.Row="2" x:Name="rtbLog" Margin="5"/> -->
           </Grid>
         </TabItem>
         <TabItem Header="Setting">
