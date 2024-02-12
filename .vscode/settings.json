@@ -1,6 +1,17 @@
 {
     "cmake.configureOnOpen": false,
     "cSpell.words": [
-      "Inlines"
+      "Argsstring",
+      "bodyend",
+      "bodyfile",
+      "bodystart",
+      "compoundref",
+      "doxygen",
+      "Dxygn",
+      "Inlines",
+      "lctn",
+      "memberdef",
+      "Referencedby",
+      "startline"
     ]
 }
