@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_2cfa845288836d0010190eddcc80c178" kind="dir">
+    <compoundname>D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE</compoundname>
+    <innerdir refid="dir_e8a15d2e95e7b27c7a525cc36638b95d">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug</innerdir>
+    <innerdir refid="dir_820ed496a72364540f956d74a47a905f">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/CMSIS</innerdir>
+    <innerdir refid="dir_121f20a2793e3e20fd5e3e06c84a210b">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler</innerdir>
+    <innerdir refid="dir_482cc91dc9493d727989d0e22764ae5f">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Device</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/"/>
+  </compounddef>
+</doxygen>

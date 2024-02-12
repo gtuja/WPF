@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_820ed496a72364540f956d74a47a905f" kind="dir">
+    <compoundname>D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/CMSIS</compoundname>
+    <innerfile refid="_r_t_x___config_8c">RTX_Config.c</innerfile>
+    <innerfile refid="_r_t_x___config_8h">RTX_Config.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/CMSIS/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="_pre___include___global_8h" kind="file" language="C++">
+    <compoundname>Pre_Include_Global.h</compoundname>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_pre___include___global_8h_1a13fde7eed89250511adafbc8bbedcc62" prot="public" static="no">
+        <name>USE_HAL_DRIVER</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug/Pre_Include_Global.h" line="14" column="9" bodyfile="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug/Pre_Include_Global.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pre___include___global_8h_1af012fa5f83f9fc5beb7a43209880ed5e" prot="public" static="no">
+        <name>USE_FULL_LL_DRIVER</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug/Pre_Include_Global.h" line="15" column="19" bodyfile="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug/Pre_Include_Global.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Auto<sp/>generated<sp/>Run-Time-Environment<sp/>Configuration<sp/>File</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>***<sp/>Do<sp/>not<sp/>modify<sp/>!<sp/>***</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Project:<sp/>&apos;Blinky&apos;<sp/></highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>Target:<sp/><sp/>&apos;Debug&apos;<sp/></highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PRE_INCLUDE_GLOBAL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRE_INCLUDE_GLOBAL_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Keil::Device&amp;STM32CubeMX:STM32Cube<sp/>HAL@1.12.0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="_pre___include___global_8h_1a13fde7eed89250511adafbc8bbedcc62" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_HAL_DRIVER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="_pre___include___global_8h_1af012fa5f83f9fc5beb7a43209880ed5e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>USE_FULL_LL_DRIVER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PRE_INCLUDE_GLOBAL_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/_Debug/Pre_Include_Global.h"/>
+  </compounddef>
+</doxygen>

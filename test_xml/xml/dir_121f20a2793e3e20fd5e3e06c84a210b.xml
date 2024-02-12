@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_121f20a2793e3e20fd5e3e06c84a210b" kind="dir">
+    <compoundname>D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler</compoundname>
+    <innerfile refid="_event_recorder_conf_8h">EventRecorderConf.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/"/>
+  </compounddef>
+</doxygen>

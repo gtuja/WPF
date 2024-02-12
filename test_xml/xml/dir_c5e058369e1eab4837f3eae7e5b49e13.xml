@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="dir_c5e058369e1eab4837f3eae7e5b49e13" kind="dir">
+    <compoundname>D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Device/STM32L053R8Tx/STCubeGenerated</compoundname>
+    <innerdir refid="dir_55b437e2bd9852913c038b097caf89ca">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Device/STM32L053R8Tx/STCubeGenerated/Inc</innerdir>
+    <innerdir refid="dir_ba0d08f2a2ba65db5374233a68280887">D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Device/STM32L053R8Tx/STCubeGenerated/Src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Device/STM32L053R8Tx/STCubeGenerated/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="_event_recorder_conf_8h" kind="file" language="C++">
+    <compoundname>EventRecorderConf.h</compoundname>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_event_recorder_conf_8h_1a3181ef0ab3f72d2cbec4ca998da8c063" prot="public" static="no">
+        <name>EVENT_RECORD_COUNT</name>
+        <initializer>64U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" line="20" column="9" bodyfile="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_recorder_conf_8h_1a457c02ee26c8045ce528f44bff4e45c7" prot="public" static="no">
+        <name>EVENT_TIMESTAMP_SOURCE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" line="26" column="9" bodyfile="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_event_recorder_conf_8h_1a91afca9137bb92f734826eb9e65a7353" prot="public" static="no">
+        <name>EVENT_TIMESTAMP_FREQ</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" line="30" column="9" bodyfile="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*------------------------------------------------------------------------------</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>MDK<sp/>-<sp/>Component<sp/>::Event<sp/>Recorder</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2016-2018<sp/>ARM<sp/>Germany<sp/>GmbH.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*------------------------------------------------------------------------------</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Name:<sp/><sp/><sp/><sp/>EventRecorderConf.h</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/>Event<sp/>Recorder<sp/>Configuration</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>Rev.:<sp/><sp/><sp/><sp/>V1.1.0</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*----------------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//--------<sp/>&lt;&lt;&lt;<sp/>Use<sp/>Configuration<sp/>Wizard<sp/>in<sp/>Context<sp/>Menu<sp/>&gt;&gt;&gt;<sp/>--------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>&lt;h&gt;Event<sp/>Recorder</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;o&gt;Number<sp/>of<sp/>Records</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&lt;8=&gt;8<sp/>&lt;16=&gt;16<sp/>&lt;32=&gt;32<sp/>&lt;64=&gt;64<sp/>&lt;128=&gt;128<sp/>&lt;256=&gt;256<sp/>&lt;512=&gt;512<sp/>&lt;1024=&gt;1024</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&lt;2048=&gt;2048<sp/>&lt;4096=&gt;4096<sp/>&lt;8192=&gt;8192<sp/>&lt;16384=&gt;16384<sp/>&lt;32768=&gt;32768</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>&lt;65536=&gt;65536</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;i&gt;Configures<sp/>size<sp/>of<sp/>Event<sp/>Record<sp/>Buffer<sp/>(each<sp/>record<sp/>is<sp/>16<sp/>bytes)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;i&gt;Must<sp/>be<sp/>2^n<sp/>(min=8,<sp/>max=65536)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="_event_recorder_conf_8h_1a3181ef0ab3f72d2cbec4ca998da8c063" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EVENT_RECORD_COUNT<sp/><sp/><sp/><sp/><sp/><sp/>64U</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;o&gt;Time<sp/>Stamp<sp/>Source</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>&lt;0=&gt;<sp/>DWT<sp/>Cycle<sp/>Counter<sp/><sp/>&lt;1=&gt;<sp/>SysTick<sp/><sp/>&lt;2=&gt;<sp/>CMSIS-RTOS2<sp/>System<sp/>Timer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/>&lt;3=&gt;<sp/>User<sp/>Timer<sp/>(Normal<sp/>Reset)<sp/><sp/>&lt;4=&gt;<sp/>User<sp/>Timer<sp/>(Power-On<sp/>Reset)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;i&gt;Selects<sp/>source<sp/>for<sp/>32-bit<sp/>time<sp/>stamp</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="_event_recorder_conf_8h_1a457c02ee26c8045ce528f44bff4e45c7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EVENT_TIMESTAMP_SOURCE<sp/><sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;o&gt;Time<sp/>Stamp<sp/>Clock<sp/>Frequency<sp/>[Hz]<sp/>&lt;0-1000000000&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/>&lt;i&gt;Defines<sp/>initial<sp/>time<sp/>stamp<sp/>clock<sp/>frequency<sp/>(0<sp/>when<sp/>not<sp/>used)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="_event_recorder_conf_8h_1a91afca9137bb92f734826eb9e65a7353" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EVENT_TIMESTAMP_FREQ<sp/><sp/><sp/><sp/>0U</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>&lt;/h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//-------------<sp/>&lt;&lt;&lt;<sp/>end<sp/>of<sp/>configuration<sp/>section<sp/>&gt;&gt;&gt;<sp/>---------------------------</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="D:/_dev/Repository/Nucleo/STM32L053R8/Keil/Blinky/RTE/Compiler/EventRecorderConf.h"/>
+  </compounddef>
+</doxygen>
