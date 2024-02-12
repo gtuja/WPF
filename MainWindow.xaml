@@ -47,10 +47,10 @@
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Margin="5">
-              <Button x:Name="btnExecute" Content="Execute" Click="vidBtnExecuteClick"/>
+              <Button x:Name="ButtonExecute" Content="Execute" Click="vidBtnExecuteClick"/>
             </StackPanel>
-            <ProgressBar Grid.Row="1" x:Name="pbProgress" Margin="5"/>
-            <RichTextBox Grid.Row="2" x:Name="rtbLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" Margin="5">
+            <ProgressBar Grid.Row="1" x:Name="ProgressBarExecute" Margin="5"/>
+            <RichTextBox Grid.Row="2" x:Name="RichTextBoxLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" Margin="5">
             </RichTextBox>
           <!-- <RichTextBox Grid.Row="2" x:Name="rtbLog" Margin="5"/> -->
           </Grid>
@@ -58,6 +58,6 @@
         <TabItem Header="Setting">
         </TabItem>
       </TabControl>
-      <Label x:Name="lblStatus" Content="Status......" Grid.Row="2" Margin="5"/>
+      <Label x:Name="LabelStatus" Content="Status......" Grid.Row="2" Margin="5"/>
     </Grid>
 </Window>
