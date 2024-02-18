@@ -20,16 +20,61 @@ namespace WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
-  private readonly ProgressBar pbProgress;
-  private readonly RichTextBox rtbLog;
-  private readonly Label lblStatus;
+  private Button btnLoadCode;
+  private TextBox tbTargetFolderCode; 
+  private Button btnLoadXml; 
+  private TextBox tbTargetFolderXml; 
+  private Button btnExecute;
+  private ProgressBar pbProgress;
+  private RichTextBox rtbLog;
+  private Label lblStatus;
+
+  private String strTargetFolderCode;
+  private String strTargetFolderXml;
 
   public MainWindow()
   {
     InitializeComponent();
-    this.lblStatus = LabelStatus;
+    this.btnLoadCode = ButtonLoadCode;
+    this.tbTargetFolderCode = TextBoxPathCode;
+    this.btnLoadXml = ButtonLoadXml;
+    this.tbTargetFolderXml = TextBoxPathXml;
+    this.btnExecute = ButtonExecute;
     this.pbProgress = ProgressBarExecute;
     this.rtbLog = RichTextBoxLog;
+    this.lblStatus = LabelStatus;
+  }
+
+  public void vidBtnLoadCodeClick(
+    object objSender,
+    RoutedEventArgs reaEvent
+  )
+  {
+    String strTargetFolder;
+
+    strTargetFolder = Util.UI.strOpenFolderDialog("Select the path of target code..");
+    if (strTargetFolder != String.Empty)
+    {
+      this.strTargetFolderCode = strTargetFolder;
+      this.tbTargetFolderCode.Text = strTargetFolder;
+      this.btnLoadXml.IsEnabled = true;
+    }
+  }
+
+  public void vidBtnLoadXmlClick(
+    object objSender,
+    RoutedEventArgs reaEvent
+  )
+  {
+    String strTargetFolder;
+
+    strTargetFolder = Util.UI.strOpenFolderDialog("Select the path of xml..");
+    if (strTargetFolder != String.Empty)
+    {
+      this.strTargetFolderXml = strTargetFolder;
+      this.tbTargetFolderXml.Text = strTargetFolder;
+      this.btnExecute.IsEnabled = true;
+    }
   }
 
   public void vidBtnExecuteClick(
