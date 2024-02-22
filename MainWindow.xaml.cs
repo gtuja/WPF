@@ -43,6 +43,8 @@ public partial class MainWindow : Window
     this.pbProgress = ProgressBarExecute;
     this.rtbLog = RichTextBoxLog;
     this.lblStatus = LabelStatus;
+    this.strTargetFolderCode = String.Empty;
+    this.strTargetFolderXml = String.Empty;
   }
 
   public void vidBtnLoadCodeClick(
