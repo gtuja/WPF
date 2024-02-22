@@ -20,6 +20,11 @@ namespace Dxgn;
  */
 public class Report
 {
+  public enum enuReportType : ushort
+  {
+    CSV = 0,
+  };
+
   /**
   * @brief A public class for reporting reference from doxygen output.
   * @see Dxgn.Report.Item
@@ -44,12 +49,23 @@ public class Report
     }
 
     /**
-    * @brief A public override method ToString.
+    * @brief A public method to to represent a Reference.
     * @return A String object to represent a Reference with csv style.
     */
-    public override String ToString()
+    public String strToString(Report.enuReportType ReportType)
     {
-      return this.strName + "," + this.strModule + ",";
+      String strReturn = String.Empty;
+
+      switch (ReportType)
+      {
+        case Report.enuReportType.CSV :
+          strReturn = this.strName + "," + this.strModule + ",";
+          break;
+        default :
+          strReturn = String.Empty;
+          break;
+      }
+      return strReturn;
     }
   };
 
@@ -120,7 +136,7 @@ public class Report
     *  Count,Name,Module, [Ref]
     *  Count,Name,Module, [RefBy]
     */
-    public List<String> ToCsv()
+    public List<String> lstToCsv()
     {
       List<String> lstReturn = [];
       UInt16 u16Index;
@@ -138,20 +154,37 @@ public class Report
       foreach(Reference r in this.lstRef)
       {
         u16Index++;
-        lstReturn.Add(strItemCsv + u16Index.ToString() + "," +  /* Count, */
-                                   r.ToString() +               /* Name,Module, */
-                                   ",,,");                      /* Count,Name,Module,[RefBy] */
+        lstReturn.Add(strItemCsv + u16Index.ToString() + "," +                /* Count, */
+                                   r.strToString(Report.enuReportType.CSV) +  /* Name,Module, */
+                                   ",,,");                                    /* Count,Name,Module,[RefBy] */
       }
 
       u16Index = 0;
       foreach(Reference r in this.lstRef)
       {
         u16Index++;
-        lstReturn.Add(strItemCsv + ",,," +  /* Count,Name,Module,[Ref] */
-                                   u16Index.ToString() + "," +  /* Count */
-                                   r.ToString());               /* Name,Module, */
+        lstReturn.Add(strItemCsv + ",,," +                                    /* Count,Name,Module,[Ref] */
+                                   u16Index.ToString() + "," +                /* Count */
+                                   r.strToString(Report.enuReportType.CSV));  /* Name,Module, */
       }
       return lstReturn;
     }
   };
+
+  public Dictionary<String, Dxgn.Xml.Compound> dicCompound;
+  public Dictionary<String, Dxgn.Xml.MemberDef> dicMemberDef;
+
+  /**
+   * @brief Constructor.
+   */
+  public Report()
+  {
+    this.dicCompound = [];
+    this.dicMemberDef = [];
+  }
+
+  public void vidSetup(String strPathXml)
+  {
+    return;
+  }
 };
