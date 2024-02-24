@@ -15,25 +15,25 @@ using System.Windows.Threading;
 namespace Util;
 
 /**
-* @brief A public class holding utilities for extracting XML, e.g. descendants, attribute, value, etc.
-* @see using System.Xml.Linq
-* @see using System.Reflection
-*/
+ * @brief A public class holding utilities for extracting XML, e.g. descendants, attribute, value, etc.
+ * @see using System.Xml.Linq
+ * @see using System.Reflection
+ */
 public class Xml
 {
   /**
-  * @brief A public class holding an attribute of a tag.
-  * @param strName A String object holding the name of an attribute.
-  * @param strValue A String object holding the value of an attribute.
-  */
+   * @brief A public class holding an attribute of a tag.
+   * @param strName A String object holding the name of an attribute.
+   * @param strValue A String object holding the value of an attribute.
+   */
   public class Attribute
   {
     public String strName;
     public String strValue;
 
     /**
-    * @brief A default constructor.
-    */
+     * @brief A default constructor.
+     */
     public Attribute()
     {
       this.strName = String.Empty;
@@ -41,10 +41,10 @@ public class Xml
     }
 
     /**
-    * @brief A constructor.
-    * @param strName A String object holding the name of attribute.
-    * @param strValue A String object holding the value of attribute.
-    */
+     * @brief A constructor.
+     * @param strName A String object holding the name of attribute.
+     * @param strValue A String object holding the value of attribute.
+     */
     public Attribute(
       String strName,
       String strValue
@@ -54,7 +54,10 @@ public class Xml
       this.strValue = strValue;
     }
 
-    public override string ToString()
+    /**
+     * @brief A public method for getting attribute name and value.
+     */
+    public String strToString()
     {
       return this.strName + " : " + this.strValue;
     }
@@ -63,13 +66,13 @@ public class Xml
   static readonly String Nothing = @"Nothing";
 
   /**
-  * @brief A public static method to get descendants of dedicated tag(strTagName) on a xml file(strPath).
-  * @param strPath A String object holding the file path of a xml file.
-  * @param strTagName A String object holding the tag name to get.
-  * @param lstException A list object to store exception information.
-  * @return lstReturn A list object holding XElements extracted.
-  * @see System.Reflection.MethodBase
-  */
+   * @brief A public static method to get descendants of dedicated tag(strTagName) on a xml file(strPath).
+   * @param strPath A String object holding the file path of a xml file.
+   * @param strTagName A String object holding the tag name to get.
+   * @param lstException A list object to store exception information.
+   * @return lstReturn A list object holding XElements extracted.
+   * @see System.Reflection.MethodBase
+   */
   public static List<XElement> lstGetDescendants(
     String strPath,
     String strTagName,
@@ -97,13 +100,13 @@ public class Xml
   }
 
   /**
-  * @brief A public static method to get descendants of dedicated tag(strTagName) on a XElement(xeElement).
-  * @param xeElement A XElement object for extracting.
-  * @param strTagName A String object holding the tag name to get.
-  * @param lstException A list object to store exception information.
-  * @return lstReturn A list object holding XElements extracted.
-  * @see System.Reflection.MethodBase
-  */
+   * @brief A public static method to get descendants of dedicated tag(strTagName) on a XElement(xeElement).
+   * @param xeElement A XElement object for extracting.
+   * @param strTagName A String object holding the tag name to get.
+   * @param lstException A list object to store exception information.
+   * @return lstReturn A list object holding XElements extracted.
+   * @see System.Reflection.MethodBase
+   */
   public static List<XElement> lstGetDescendants(
     XElement xeElement,
     String strTagName,
@@ -130,13 +133,13 @@ public class Xml
   }
 
   /**
-  * @brief A public static method to get the first descendants of dedicated tag(strTagName) on a XElement(xeElement).
-  * @param xeElement A XElement object for extracting.
-  * @param strTagName A String object holding the tag name to get.
-  * @param lstException A list object to store exception information.
-  * @return xeReturn A XElement object holding the first descendant.
-  * @see System.Reflection.MethodBase
-  */
+   * @brief A public static method to get the first descendants of dedicated tag(strTagName) on a XElement(xeElement).
+   * @param xeElement A XElement object for extracting.
+   * @param strTagName A String object holding the tag name to get.
+   * @param lstException A list object to store exception information.
+   * @return xeReturn A XElement object holding the first descendant.
+   * @see System.Reflection.MethodBase
+   */
   public static XElement xeGetFirstDescendant(
     XElement xeElement,
     String strTagName,
@@ -167,13 +170,13 @@ public class Xml
   }
 
   /**
-  * @brief A public static method to get value of attributes of a dedicated XElement(xeElement).
-  * @param xeElement A XElement object for extracting.
-  * @param strAttributeName A String object holding the name of attribute to get.
-  * @param lstException A list object to store exception information.
-  * @return lstReturn A list object holding value of attributes extracted.
-  * @see System.Reflection.MethodBase
-  */
+   * @brief A public static method to get value of attributes of a dedicated XElement(xeElement).
+   * @param xeElement A XElement object for extracting.
+   * @param strAttributeName A String object holding the name of attribute to get.
+   * @param lstException A list object to store exception information.
+   * @return lstReturn A list object holding value of attributes extracted.
+   * @see System.Reflection.MethodBase
+   */
   public static List<Attribute> lstGetAttributes(
     XElement xeElement,
     List<String> lstException
@@ -199,13 +202,13 @@ public class Xml
   }
 
   /**
-  * @brief A public static method to get the first attribute of a dedicated XElement(xeElement).
-  * @param xeElement A XElement object for extracting.
-  * @param strAttributeName A String object holding the name of attribute to get.
-  * @param lstException A list object to store exception information.
-  * @return strReturn A String object holding the first value of attribute extracted.
-  * @see Xml.lstGetAttributes
-  */
+   * @brief A public static method to get the first attribute of a dedicated XElement(xeElement).
+   * @param xeElement A XElement object for extracting.
+   * @param strAttributeName A String object holding the name of attribute to get.
+   * @param lstException A list object to store exception information.
+   * @return strReturn A String object holding the first value of attribute extracted.
+   * @see Xml.lstGetAttributes
+   */
   public static Attribute attrGetAttribute(
     XElement xeElement,
     String strAttributeName,

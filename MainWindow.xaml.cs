@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.ExceptionServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,6 +33,8 @@ public partial class MainWindow : Window
   private String strTargetFolderCode;
   private String strTargetFolderXml;
 
+  private Dxgn.Report rptDoxygenReport;
+
   public MainWindow()
   {
     InitializeComponent();
@@ -45,6 +48,7 @@ public partial class MainWindow : Window
     this.lblStatus = LabelStatus;
     this.strTargetFolderCode = String.Empty;
     this.strTargetFolderXml = String.Empty;
+    this.rptDoxygenReport = new Dxgn.Report();
   }
 
   public void vidBtnLoadCodeClick(
@@ -84,37 +88,28 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    String strFileXml;
-    List<XElement> lstElement;
-    List<String> lstException = [];
-    UI.vidAppendLog(rtbLog, @"Test....................");
-    strFileXml = UI.strOpenFileDialog(@"Open File", @"Document", @"Xml File|*.xml|" + @"Text File|*.txt|" + @"Xlsx File|*.xlsx|" + "All Files|*.*");
-    UI.vidAppendLog(rtbLog, strFileXml);
+    List<String>lstException = new();
+    Int32 s32CountProgress = this.rptDoxygenReport.s32GetProgressCount(strTargetFolderXml, lstException);
 
-    lstElement = Xml.lstGetDescendants(strFileXml, @"compound", lstException);
-
-    this.pbProgress.Maximum = lstElement.Count;
-    
-    foreach(XElement xeCompound in lstElement)
+    if (s32CountProgress != Dxgn.Report.s32ReturnInvalid)
     {
-      UI.vidAppendLog(rtbLog, xeCompound.Name.ToString());
-      UI.vidAppendLog(rtbLog, xeCompound.Value);
-      
-      List<Xml.Attribute> lstAttribute = [];
-
-      lstElement = Xml.lstGetDescendants(xeCompound, @"member", lstException);
-      
-      foreach (XElement xeMember in lstElement)
+      this.pbProgress.Maximum = s32CountProgress;
+      this.rptDoxygenReport.vidExecute(strTargetFolderXml, this.pbProgress, this.rtbLog, lstException);
+    }
+    else
+    {
+      if (lstException.Count > 0)
       {
-        UI.vidAppendLog(rtbLog, xeMember.Name.ToString() + " : " + xeMember.Value);
-        foreach (Xml.Attribute attribute in Xml.lstGetAttributes(xeMember, lstException))
+        UI.vidAppendLog(rtbLog, "# There are exceptions[" + lstException.Count + "] below...");
+        foreach(String s in lstException)
         {
-          UI.vidAppendLog(rtbLog, attribute.ToString());
+          UI.vidAppendLog(rtbLog, s);
         }
-        UI.vidUpdateUI();
       }
-      this.pbProgress.Value++;
-      UI.vidUpdateUI();
+      else
+      {
+        UI.vidAppendLog(rtbLog, "# There is no target progress...");
+      }
     }
   }
 }
