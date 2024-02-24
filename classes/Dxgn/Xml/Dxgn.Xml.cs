@@ -48,6 +48,7 @@ public class Xml
         public static readonly String File  = @"file";
         public static readonly String Dir  = @"dir";
         public static readonly String Group  = @"group";
+        public static readonly String Class  = @"class";
       };
     };
 
