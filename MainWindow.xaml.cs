@@ -10,6 +10,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using Util;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 #pragma warning disable IDE1006 // Naming Styles
 
@@ -23,6 +25,11 @@ public partial class MainWindow : Window
   private readonly ProgressBar pbProgress;
   private readonly RichTextBox rtbLog;
   private readonly Label lblStatus;
+  private readonly Button btnExecute;
+
+  private Tester.TesterBackground bgTask;
+
+  private readonly Task.Container tcContainer;
 
   public MainWindow()
   {
@@ -30,6 +37,10 @@ public partial class MainWindow : Window
     this.lblStatus = LabelStatus;
     this.pbProgress = ProgressBarExecute;
     this.rtbLog = RichTextBoxLog;
+    this.btnExecute = ButtonExecute;
+    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog);
+    this.bgTask = new Tester.TesterBackground(@"Tester(Background)");
+    this.tcContainer.vidAdd(this.bgTask);
   }
 
   public void vidBtnExecuteClick(
@@ -37,37 +48,18 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    String strFileXml;
-    List<XElement> lstElement;
-    List<String> lstException = [];
-    UI.vidAppendLog(rtbLog, @"Test....................");
-    strFileXml = UI.strOpenFileDialog(@"Open File", @"Document", @"Xml File|*.xml|" + @"Text File|*.txt|" + @"Xlsx File|*.xlsx|" + "All Files|*.*");
-    UI.vidAppendLog(rtbLog, strFileXml);
-
-    lstElement = Xml.lstGetDescendants(strFileXml, @"compound", lstException);
-
-    this.pbProgress.Maximum = lstElement.Count;
-    
-    foreach(XElement xeCompound in lstElement)
+    foreach(Task.Worker worker in this.tcContainer.lstWorker)
     {
-      UI.vidAppendLog(rtbLog, xeCompound.Name.ToString());
-      UI.vidAppendLog(rtbLog, xeCompound.Value);
-      
-      List<Xml.Attribute> lstAttribute = [];
-
-      lstElement = Xml.lstGetDescendants(xeCompound, @"member", lstException);
-      
-      foreach (XElement xeMember in lstElement)
+      if (worker.bIsBusy())
       {
-        UI.vidAppendLog(rtbLog, xeMember.Name.ToString() + " : " + xeMember.Value);
-        foreach (Xml.Attribute attribute in Xml.lstGetAttributes(xeMember, lstException))
-        {
-          UI.vidAppendLog(rtbLog, attribute.ToString());
-        }
-        UI.vidUpdateUI();
+        worker.vidCancel();
+        this.btnExecute.Content = @"Execute";
       }
-      this.pbProgress.Value++;
-      UI.vidUpdateUI();
+      else
+      {
+        worker.vidStart();
+        this.btnExecute.Content = @"Cancel";
+      }
     }
   }
 }
