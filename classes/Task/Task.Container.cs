@@ -17,23 +17,23 @@ namespace Task
 
     public void vidAdd(Task.Worker worker)
     {
-      worker.ehTaskPre += vidHandleTaskPre;
-      worker.ehTaskProgressChanged += vidHandleTaskProgressChanged;
-      worker.ehTaskAppendLog += vidHandleTaskAppendLog;
-      worker.ehTaskPost += vidHandleTaskPost;
+      worker.ehWorkerEntry += vidHandleWorkerEntry;
+      worker.ehWorkerProgress += vidHandleWorkerProgress;
+      worker.ehWorkerLog += vidHandleWorkerLog;
+      worker.ehWorkerExit += vidHandleWorkerExit;
       this.lstWorker.Add(worker);
     }
-    private void vidHandleTaskPre(object? sender, TaskEventArgs e)
+    private void vidHandleWorkerEntry(object? sender, TaskEventArgs e)
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
         new Action(() => { 
           this.pbProgress.Value = e.s32Progress;
-          this.btnExecute.Content = @"Cancel";
+          this.btnExecute.Content = e.strContent;
         }));
       return;
     }
-    private void vidHandleTaskProgressChanged(object? sender, TaskEventArgs e)
+    private void vidHandleWorkerProgress(object? sender, TaskEventArgs e)
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
@@ -44,7 +44,7 @@ namespace Task
       return;
     }
 
-    private void vidHandleTaskAppendLog(object? sender, TaskEventArgs e)
+    private void vidHandleWorkerLog(object? sender, TaskEventArgs e)
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
@@ -53,12 +53,12 @@ namespace Task
         }));
       return;
     }
-    private void vidHandleTaskPost(object? sender, TaskEventArgs e)
+    private void vidHandleWorkerExit(object? sender, TaskEventArgs e)
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
         new Action(() => { 
-          this.btnExecute.Content = @"Execute";
+          this.btnExecute.Content = e.strContent;
           UI.vidAppendLog(this.rtbLog, e.strLog);
         }));
       return;

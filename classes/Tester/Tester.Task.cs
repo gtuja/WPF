@@ -13,7 +13,7 @@ namespace Tester
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
       
-      vidOnTaskPre(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
+      vidOnWorkerEntry(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
 
       for(UInt32 i = 0; i < 100; i++)
       {
@@ -35,8 +35,8 @@ namespace Tester
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
 
-      vidOnTaskProgressChanged(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      vidOnTaskAppendLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
+      vidOnWorkerProgress(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
+      vidOnWorkerLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
       return;
     }
 
@@ -44,7 +44,7 @@ namespace Tester
     {
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      vidOnTaskPost(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
+      vidOnWorkerExit(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
       return;
     }
   }

@@ -12,7 +12,7 @@ namespace Task
   /**
   * @brief A public class holding task event arguments.
   */
-  public class TaskEventArgs(String strContent, Int32 s32Progress, String strLog) : EventArgs
+  public class TaskEventArgs(String strContent, Int32 s32Progress, String strLog) : System.EventArgs
   {
     public String strContent {get; set;} = strContent;  /**< A string object holding content, e.g. Button.  */
     public Int32 s32Progress {get; set;} = s32Progress; /**< A Int32 object holding current progress, e.g. ProgressBar.  */
@@ -24,25 +24,25 @@ namespace Task
     public static readonly Int32 s32ProgressCountInvalid = -1;
     public static readonly String strExecute = @"Execute";
     public static readonly String strCancel = @"Cancel";
-    public event EventHandler<TaskEventArgs>? ehTaskPre;
-    public event EventHandler<TaskEventArgs>? ehTaskProgressChanged;
-    public event EventHandler<TaskEventArgs>? ehTaskAppendLog;
-    public event EventHandler<TaskEventArgs>? ehTaskPost;
-    protected void vidOnTaskPre(TaskEventArgs e)
+    public event EventHandler<TaskEventArgs>? ehWorkerEntry;
+    public event EventHandler<TaskEventArgs>? ehWorkerProgress;
+    public event EventHandler<TaskEventArgs>? ehWorkerLog;
+    public event EventHandler<TaskEventArgs>? ehWorkerExit;
+    protected virtual void vidOnWorkerEntry(TaskEventArgs e)
     {
-      ehTaskPre?.Invoke(this, e);
+      ehWorkerEntry?.Invoke(this, e);
     }
-    protected void vidOnTaskProgressChanged(TaskEventArgs e)
+    protected virtual void vidOnWorkerProgress(TaskEventArgs e)
     {
-      ehTaskProgressChanged?.Invoke(this, e);
+      ehWorkerProgress?.Invoke(this, e);
     }
-    protected void vidOnTaskAppendLog(TaskEventArgs e)
+    protected virtual void vidOnWorkerLog(TaskEventArgs e)
     {
-      ehTaskAppendLog?.Invoke(this, e);
+      ehWorkerLog?.Invoke(this, e);
     }
-    protected void vidOnTaskPost(TaskEventArgs e)
+    protected virtual void vidOnWorkerExit(TaskEventArgs e)
     {
-      ehTaskPost?.Invoke(this, e);
+      ehWorkerExit?.Invoke(this, e);
     }
     public abstract Boolean vidStart();
     public abstract Boolean vidCancel();
@@ -78,7 +78,7 @@ namespace Task
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
       
-      vidOnTaskPre(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
+      vidOnWorkerEntry(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
 
       for(UInt32 i = 0; i < 100; i++)
       {
@@ -100,8 +100,8 @@ namespace Task
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
 
-      vidOnTaskProgressChanged(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      vidOnTaskAppendLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
+      vidOnWorkerProgress(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
+      vidOnWorkerLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
       return;
     }
 
@@ -109,7 +109,7 @@ namespace Task
     {
       MethodBase? mb = MethodBase.GetCurrentMethod();
       String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      vidOnTaskPost(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
+      vidOnWorkerExit(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
       return;
     }
 
