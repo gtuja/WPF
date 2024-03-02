@@ -22,25 +22,72 @@ namespace WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
+  private readonly Button btnLoadCode;
+  private readonly TextBox tbTargetFolderCode; 
+  private readonly Button btnLoadXml; 
+  private readonly TextBox tbTargetFolderXml; 
+  private readonly Button btnExecute;
   private readonly ProgressBar pbProgress;
   private readonly RichTextBox rtbLog;
   private readonly Label lblStatus;
-  private readonly Button btnExecute;
-
+  private readonly String strIdTaskDxoygenParser;
   private readonly Task.Container tcContainer;
-  private readonly Tester.TesterBackground tbTester;
-  private readonly String strTaskId;
+
+  private String strTargetFolderCode;
+  private String strTargetFolderXml;
+
+  private Dxgn.Report? rptDoxygenReport;
+
+
   public MainWindow()
   {
     InitializeComponent();
-    this.lblStatus = LabelStatus;
+    this.btnLoadCode = ButtonLoadCode;
+    this.tbTargetFolderCode = TextBoxPathCode;
+    this.btnLoadXml = ButtonLoadXml;
+    this.tbTargetFolderXml = TextBoxPathXml;
+    this.btnExecute = ButtonExecute;
     this.pbProgress = ProgressBarExecute;
     this.rtbLog = RichTextBoxLog;
-    this.btnExecute = ButtonExecute;
-    this.strTaskId = @"TesterBackground";
-    this.tbTester = new (this.strTaskId);
+    this.lblStatus = LabelStatus;
+    this.strIdTaskDxoygenParser = @"[DxgnParser]";
     this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog);
-    this.tcContainer.vidAdd(this.tbTester);
+    this.strTargetFolderCode = String.Empty;
+    this.strTargetFolderXml = String.Empty;
+  }
+
+  public void vidBtnLoadCodeClick(
+    object objSender,
+    RoutedEventArgs reaEvent
+  )
+  {
+    String strTargetFolder;
+
+    strTargetFolder = Util.UI.strOpenFolderDialog("Select the path of target code..");
+    if (strTargetFolder != String.Empty)
+    {
+      this.strTargetFolderCode = strTargetFolder;
+      this.tbTargetFolderCode.Text = strTargetFolder;
+      this.btnLoadXml.IsEnabled = true;
+    }
+  }
+
+  public void vidBtnLoadXmlClick(
+    object objSender,
+    RoutedEventArgs reaEvent
+  )
+  {
+    String strTargetFolder;
+
+    strTargetFolder = Util.UI.strOpenFolderDialog("Select the path of xml..");
+    if (strTargetFolder != String.Empty)
+    {
+      this.strTargetFolderXml = strTargetFolder;
+      this.tbTargetFolderXml.Text = strTargetFolder;
+      this.btnExecute.IsEnabled = true;
+      this.rptDoxygenReport = new Dxgn.Report(this.strIdTaskDxoygenParser, this.strTargetFolderCode, this.strTargetFolderXml);
+      this.tcContainer.vidAdd(this.rptDoxygenReport);
+    }
   }
 
   public void vidBtnExecuteClick(
@@ -48,13 +95,13 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    if (this.tcContainer.bIsBusy(this.strTaskId))
+    if (this.tcContainer.bIsBusy(this.strIdTaskDxoygenParser))
     {
-      this.tcContainer.vidCancel(this.strTaskId);
+      this.tcContainer.vidCancel(this.strIdTaskDxoygenParser);
     }
     else
     {
-      this.tcContainer.vidStart(this.strTaskId);
+      this.tcContainer.vidStart(this.strIdTaskDxoygenParser);
     }
   }
-}
+};

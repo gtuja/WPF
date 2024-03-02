@@ -12,7 +12,7 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="auto"/>
       </Grid.RowDefinitions>
-      <Menu Grid.Row="0" Margin="5">
+      <Menu Grid.Row="0" IsEnabled="False" Margin="2">
         <MenuItem Header="_Edit">
           <MenuItem Command="Copy"/>
           <MenuItem Command="Cut"/>
@@ -46,13 +46,34 @@
               <RowDefinition Height="25"/>
               <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Margin="5">
-              <Button x:Name="ButtonExecute" Content="Execute" Click="vidBtnExecuteClick"/>
+            <StackPanel Grid.Row="0" Margin="2">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="1*"/>
+                  <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="ButtonLoadCode" Content="Load Code" Click="vidBtnLoadCodeClick" Margin="2"/>
+                <TextBox Grid.Column="1" x:Name="TextBoxPathCode" IsReadOnly="True" Text="Code Path..." Margin="2"/>
+              </Grid>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="1*"/>
+                  <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="ButtonLoadXml" IsEnabled="False" Content="Load Xml" Click="vidBtnLoadXmlClick" Margin="2"/>
+                <TextBox Grid.Column="1" x:Name="TextBoxPathXml" IsReadOnly="True" Text="Xml Path..." Margin="2"/>
+              </Grid>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="1*"/>
+                  <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="ButtonExecute" IsEnabled="False" Content="Execute" Click="vidBtnExecuteClick" Margin="2"/>
+              </Grid>
             </StackPanel>
-            <ProgressBar Grid.Row="1" x:Name="ProgressBarExecute" Margin="5"/>
-            <RichTextBox Grid.Row="2" x:Name="RichTextBoxLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" Margin="5">
+            <ProgressBar Grid.Row="1" x:Name="ProgressBarExecute" Margin="2"/>
+            <RichTextBox Grid.Row="2" x:Name="RichTextBoxLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Block.LineHeight="1" Margin="2">
             </RichTextBox>
-          <!-- <RichTextBox Grid.Row="2" x:Name="rtbLog" Margin="5"/> -->
           </Grid>
         </TabItem>
         <TabItem Header="Setting">
