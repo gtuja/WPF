@@ -39,7 +39,7 @@ public partial class MainWindow : Window
     this.btnExecute = ButtonExecute;
     this.strTaskId = @"TesterBackground";
     this.tbTester = new (this.strTaskId);
-    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog);
+    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog, this.lblStatus);
     this.tcContainer.vidAdd(this.tbTester);
   }
 
