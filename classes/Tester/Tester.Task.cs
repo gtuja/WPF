@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.ComponentModel;
 using Task;
 
@@ -10,41 +9,18 @@ namespace Tester
   {
     protected override void vidDoWork(object? sender, DoWorkEventArgs e)
     {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      
-      vidOnWorkerEntry(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
+      vidOnWorkerEntry(this, new TaskEventArgs(this.strId?? String.Empty, Constants.strCancel, 100, @"[" + this.strId + @"] : invoke event entry..."));
 
-      for(UInt32 i = 0; i < 100; i++)
+      for(Int32 i = 0; i < 100; i++)
       {
-        Console.WriteLine("do work... [" + i.ToString() + "]....");
-        
         if (this.bgwWorker.CancellationPending)
         {
-          Console.WriteLine("canceled... [" + i.ToString() + "]....");
+          e.Cancel = true;
           break;
         }
-        this.bgwWorker.ReportProgress((int)i);
+        vidOnWorkerProgress(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, i, @"[" + this.strId + @"] : invoke event progress..."));
         System.Threading.Thread.Sleep(1000);
       }
-      return;
-    }
-    
-    protected override void vidProgressChanged(object? sender, ProgressChangedEventArgs e)
-    {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-
-      vidOnWorkerProgress(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      vidOnWorkerLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      return;
-    }
-
-    protected override void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
-    {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      vidOnWorkerExit(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
       return;
     }
   }

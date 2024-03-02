@@ -1,162 +1,234 @@
 using System.ComponentModel;
-using System.Reflection;
 
 #pragma warning disable IDE1006 // Naming Styles
 
 /**
- * @brief A namespace for Task called through Task.Container.
+ * @brief A namespace for task control.
+ * @see Task.Constants
+ * @see Task.TaskEventArgs
  * @see Task.Container
+ * @see Task.Worker
+ * @see Task.Background
+ * @see Task.Service
  */
 namespace Task
 {
   /**
-  * @brief A public class holding task event arguments.
+  * @brief An abstract class holding abstract or virtual methods for inherited classes, e.g., Background, Service.  
+  * @see Task.Background
+  * @see Task.Service
   */
-  public class TaskEventArgs(String strContent, Int32 s32Progress, String strLog) : System.EventArgs
-  {
-    public String strContent {get; set;} = strContent;  /**< A string object holding content, e.g. Button.  */
-    public Int32 s32Progress {get; set;} = s32Progress; /**< A Int32 object holding current progress, e.g. ProgressBar.  */
-    public String strLog {get; set;} = strLog;          /**< A string object holding log, e.g. RichTextBox. */
-  };
-
   public abstract class Worker
   {
-    public static readonly Int32 s32ProgressCountInvalid = -1;
-    public static readonly String strExecute = @"Execute";
-    public static readonly String strCancel = @"Cancel";
-    public event EventHandler<TaskEventArgs>? ehWorkerEntry;
-    public event EventHandler<TaskEventArgs>? ehWorkerProgress;
-    public event EventHandler<TaskEventArgs>? ehWorkerLog;
-    public event EventHandler<TaskEventArgs>? ehWorkerExit;
-    protected virtual void vidOnWorkerEntry(TaskEventArgs e)
+    public String strId = String.Empty; /**< A String object holding the ID of a Worker. */
+    public event EventHandler<TaskEventArgs>? ehWorkerEntry;    /**< An event handler for event entry invoked from task. */
+    public event EventHandler<TaskEventArgs>? ehWorkerProgress; /**< An event handler for event progress invoked from task. */
+    public event EventHandler<TaskEventArgs>? ehWorkerLog;      /**< An event handler for event log invoked from task. */
+    public event EventHandler<TaskEventArgs>? ehWorkerExit;     /**< An event handler for event exit invoked from task. */
+
+    /**
+    * @brief A public abstract method to start task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public abstract void vidStart();
+    
+    /**
+    * @brief A public abstract method to cancel task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public abstract void vidCancel();
+    
+    /**
+    * @brief A public abstract method to get task is busy or not, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public abstract Boolean bIsBusy();
+
+    /**
+    * @brief A protected virtual method to invoke entry event for inherited classes, e.g., Background, Service.  
+    * @param sender A object? object holding caller object.
+    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @see Task.Background
+    * @see Task.Service
+    */
+    protected virtual void vidOnWorkerEntry(
+      object? sender,
+      TaskEventArgs e
+      )
     {
       ehWorkerEntry?.Invoke(this, e);
     }
-    protected virtual void vidOnWorkerProgress(TaskEventArgs e)
+
+    /**
+    * @brief A protected virtual method to invoke progress event for inherited classes, e.g., Background, Service.  
+    * @param sender A object? object holding caller object.
+    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @see Task.Background
+    * @see Task.Service
+    */
+    protected virtual void vidOnWorkerProgress(
+      object? sender,
+      TaskEventArgs e
+      )
     {
       ehWorkerProgress?.Invoke(this, e);
     }
-    protected virtual void vidOnWorkerLog(TaskEventArgs e)
+
+    /**
+    * @brief A protected virtual method to invoke log event for inherited classes, e.g., Background, Service.  
+    * @param sender A object? object holding caller object.
+    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @see Task.Background
+    * @see Task.Service
+    */
+    protected virtual void vidOnWorkerLog(
+      object? sender,
+      TaskEventArgs e
+      )
     {
       ehWorkerLog?.Invoke(this, e);
     }
-    protected virtual void vidOnWorkerExit(TaskEventArgs e)
+
+    /**
+    * @brief A protected virtual method to invoke exit event for inherited classes, e.g., Background, Service.  
+    * @param sender A object? object holding caller object.
+    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @see Task.Background
+    * @see Task.Service
+    */
+    protected virtual void vidOnWorkerExit(
+      object? sender,
+      TaskEventArgs e
+      )
     {
       ehWorkerExit?.Invoke(this, e);
     }
-    public abstract Boolean vidStart();
-    public abstract Boolean vidCancel();
-    public abstract Boolean bIsBusy();
   };
 
-  public class Background : Worker
+  /**
+  * @brief A class processing a background task.  
+  * @see Task.Worker
+  */
+  public abstract class Background : Worker
   {
-    protected readonly BackgroundWorker bgwWorker;
-
-    public String strName { get; set; }
-    public Int32 s32ProgressCount { get; set; }
-
+    /**
+    * @brief Default constructor.  
+    */
     public Background()
     {
-      this.bgwWorker = new BackgroundWorker();
-      this.strName = String.Empty;
-      this.s32ProgressCount = Worker.s32ProgressCountInvalid;
+      this.strId = String.Empty;
+      this.bgwWorker = new BackgroundWorker
+      {
+        WorkerSupportsCancellation = true
+      };
       this.bgwWorker.DoWork += new DoWorkEventHandler(vidDoWork);
-      this.bgwWorker.ProgressChanged += new ProgressChangedEventHandler(vidProgressChanged);
       this.bgwWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(vidCompleted);
     }
 
+    /**
+    * @brief Constructor.  
+    * @param strId A String object holding the ID of task.  
+    */
     public Background(
-      String strName
+      String strId
     ) : this()
     {
-      this.strName = strName;
+      this.strId = strId;
     }
 
-    protected virtual void vidDoWork(object? sender, DoWorkEventArgs e)
+    /**
+    * @brief An public abstract method to start task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    */
+    public override void vidStart()
     {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      
-      vidOnWorkerEntry(new TaskEventArgs(Task.Worker.strCancel, 0, strMethodName));
-
-      for(UInt32 i = 0; i < 100; i++)
-      {
-        Console.WriteLine("do work... [" + i.ToString() + "]....");
-        
-        if (this.bgwWorker.CancellationPending)
-        {
-          Console.WriteLine("canceled... [" + i.ToString() + "]....");
-          break;
-        }
-        this.bgwWorker.ReportProgress((int)i);
-        System.Threading.Thread.Sleep(1000);
-      }
-      return;
-    }
-    
-    protected virtual void vidProgressChanged(object? sender, ProgressChangedEventArgs e)
-    {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-
-      vidOnWorkerProgress(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      vidOnWorkerLog(new TaskEventArgs(String.Empty, e.ProgressPercentage, strMethodName));
-      return;
-    }
-
-    protected virtual void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
-    {
-      MethodBase? mb = MethodBase.GetCurrentMethod();
-      String strMethodName = (mb != null) ? mb.ReflectedType + mb.Name : String.Empty;
-      vidOnWorkerExit(new TaskEventArgs(Task.Worker.strExecute, 0, strMethodName));
-      return;
-    }
-
-    public override Boolean vidStart()
-    {
-      Boolean bReturn = false;
-
-      if (!this.bIsBusy())
+      if (!this.bgwWorker.IsBusy)
       {
         this.bgwWorker.WorkerReportsProgress = true;
         this.bgwWorker.WorkerSupportsCancellation = true;
         this.bgwWorker.RunWorkerAsync();
-        bReturn = true;
+        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : try to start..."));
       }
       else
       {
-        bReturn = false;
+        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : no way to start, it's busy..."));
       }
-      return bReturn;
     }
 
-    public override Boolean vidCancel()
+    /**
+    * @brief An public abstract method to cancel task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    */
+    public override void vidCancel()
     {
-      Boolean bReturn = false;
-
-      if (this.bgwWorker != null)
+      if (this.bgwWorker.IsBusy)
       {
         this.bgwWorker.CancelAsync();
-        bReturn = true;
+        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : try to cancel..."));
       }
       else
       {
-        bReturn = false;
+        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : no way to cancel, it's not busy..."));
       }
-      return bReturn;
     }
 
+    /**
+    * @brief An public abstract method to get task is busy or not, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    */
     public override Boolean bIsBusy()
     {
       return this.bgwWorker.IsBusy;
     }
-  };
-  
-  public class Service : Worker
-  {
-    public String strName { get; set; }
 
+    /**
+    * @brief A protected virtual method to do something with background task.
+    * @param sender A object? object holding sender.  
+    * @param e A DoWorkEventArgs object holding event arguments.  
+    * @note
+    *   The class inherited should override this method.  
+    */
+    protected abstract void vidDoWork(
+      object? sender,
+      DoWorkEventArgs e
+      );
+    
+    /**
+    * @brief A protected virtual method to do something after background task completed.
+    * @param sender A object? object holding sender.  
+    * @param e A DoWorkEventArgs object holding event arguments.  
+    */
+    protected virtual void vidCompleted(
+      object? sender,
+      RunWorkerCompletedEventArgs e
+      )
+    {
+      vidOnWorkerExit(this, new TaskEventArgs(this.strId?? String.Empty, Constants.strExecute, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : invoke event exit..."));
+      return;
+    }
+    protected readonly BackgroundWorker bgwWorker;  /**< A BackgroundWorker object to process background task. */
+  };
+
+  /**
+  * @brief A class processing a service task.  
+  * @see Task.Worker
+  * @note
+  *   TBD, Shall implement on further feature.
+  */
+  public abstract class Service : Worker
+  {
     public Service()
     {
       this.strName = String.Empty;
@@ -169,33 +241,14 @@ namespace Task
       this.strName = strName;
     }
 
-    protected virtual void vidDoWork(object? sender, DoWorkEventArgs e)
-    {
-      /* TBD */
-    }
-    
-    protected virtual void vidProgressChanged(object? sender, ProgressChangedEventArgs e)
+    public override void vidStart()
     {
       /* TBD */
     }
 
-    protected virtual void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
+    public override void vidCancel()
     {
       /* TBD */
-    }
-
-    public override Boolean vidStart()
-    {
-      Boolean bReturn = false;
-      /* TBD */
-      return bReturn;
-    }
-
-    public override Boolean vidCancel()
-    {
-      Boolean bReturn = false;
-      /* TBD */
-      return bReturn;
     }
 
     public override Boolean bIsBusy()
@@ -204,6 +257,16 @@ namespace Task
       /* TBD */
       return bReturn;
     }
+
+    protected abstract void vidDoWork(object? sender, DoWorkEventArgs e);
+    
+    protected virtual void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
+    {
+      /* TBD */
+    }
+
+    public String strName { get; set; }
   };
-}
+};
+
 

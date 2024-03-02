@@ -27,10 +27,9 @@ public partial class MainWindow : Window
   private readonly Label lblStatus;
   private readonly Button btnExecute;
 
-  private Tester.TesterBackground bgTask;
-
   private readonly Task.Container tcContainer;
-
+  private readonly Tester.TesterBackground tbTester;
+  private readonly String strTaskId;
   public MainWindow()
   {
     InitializeComponent();
@@ -38,9 +37,10 @@ public partial class MainWindow : Window
     this.pbProgress = ProgressBarExecute;
     this.rtbLog = RichTextBoxLog;
     this.btnExecute = ButtonExecute;
+    this.strTaskId = @"TesterBackground";
+    this.tbTester = new (this.strTaskId);
     this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog);
-    this.bgTask = new Tester.TesterBackground(@"Tester(Background)");
-    this.tcContainer.vidAdd(this.bgTask);
+    this.tcContainer.vidAdd(this.tbTester);
   }
 
   public void vidBtnExecuteClick(
@@ -48,18 +48,13 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    foreach(Task.Worker worker in this.tcContainer.lstWorker)
+    if (this.tcContainer.bIsBusy(this.strTaskId))
     {
-      if (worker.bIsBusy())
-      {
-        worker.vidCancel();
-        this.btnExecute.Content = @"Execute";
-      }
-      else
-      {
-        worker.vidStart();
-        this.btnExecute.Content = @"Cancel";
-      }
+      this.tcContainer.vidCancel(this.strTaskId);
+    }
+    else
+    {
+      this.tcContainer.vidStart(this.strTaskId);
     }
   }
 }
