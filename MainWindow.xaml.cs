@@ -38,7 +38,6 @@ public partial class MainWindow : Window
 
   private Dxgn.Report? rptDoxygenReport;
 
-
   public MainWindow()
   {
     InitializeComponent();
@@ -51,7 +50,7 @@ public partial class MainWindow : Window
     this.rtbLog = RichTextBoxLog;
     this.lblStatus = LabelStatus;
     this.strIdTaskDxoygenParser = @"[DxgnParser]";
-    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog);
+    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog, this.lblStatus);
     this.strTargetFolderCode = String.Empty;
     this.strTargetFolderXml = String.Empty;
   }

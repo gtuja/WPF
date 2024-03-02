@@ -215,7 +215,7 @@ namespace Dxgn
         lstException.Add(e.ToString());
         foreach(String exception in lstException)
         {
-          vidOnWorkerLog(this, new Task.TaskEventArgs(this.strId?? String.Empty, String.Empty, Task.Constants.s32ProgressCountInvalid, "[Exception][" + Util.Debug.strGetMethodNme() + "] " + exception.ToString()));
+          vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "[Exception][" + Util.Debug.strGetMethodNme() + "] " + exception.ToString()));
         }
         s32Count = s32ReturnInvalid;  /* Return s32ReturnInvalid[-1], if there was any exception.*/
       }
@@ -230,40 +230,51 @@ namespace Dxgn
       String strFileIndex = strPathXml + "\\" + Dxgn.Xml.strIndexFile;
       List<XElement> lstElementCompound;
       List<String> lstException = [];
-      Int32 s32Progress = 0;
+      Int32 s32Progress;
+      Int32 s32Index;
 
-      vidOnWorkerEntry(this, new Task.TaskEventArgs(this.strId?? String.Empty, Task.Constants.strCancel, this.s32ProgressMax, @"[" + this.strId + @"] : invoke event entry..."));
+      vidOnWorkerEntry(this, new Task.TaskEventEntryArgs(this.strId?? String.Empty, Task.Constants.strCancel, this.s32ProgressMax, @"[" + this.strId + @"] : invoke event entry..."));
       lstElementCompound = Util.Xml.lstGetDescendants(strFileIndex, @"compound", lstException);
-      vidOnWorkerLog(this, new Task.TaskEventArgs(this.strId?? String.Empty, String.Empty, Task.Constants.s32ProgressCountInvalid, "## Started extracting compounds(" + lstElementCompound.Count + ")..."));
+      vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "## Started extracting compounds(" + lstElementCompound.Count + ")..."));
       List<String> lstPathXml = [.. System.IO.Directory.GetFiles(strPathXml,
                                                                   "*.xml",
                                                                   System.IO.SearchOption.AllDirectories)];
+      s32Progress = 0;
+      s32Index = 0;
       foreach(XElement xe in lstElementCompound)
       {
         s32Progress++;
+        s32Index++;
         /* Code needed, extracting compound from index.xml */
-        vidOnWorkerProgress(this, new Task.TaskEventArgs(this.strId?? String.Empty, Task.Constants.strCancel, s32Progress, String.Empty));  /* Status shall be added */
+        System.Threading.Thread.Sleep(100);
+        vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Extracting compounds [" + s32Index + "/" + lstElementCompound.Count + "]"));
       }
 
-      vidOnWorkerLog(this, new Task.TaskEventArgs(this.strId?? String.Empty, String.Empty, Task.Constants.s32ProgressCountInvalid, "## Started extracting memberdefs on xml files(" + lstPathXml.Count + ")..."));
+      vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "## Started extracting memberdefs on xml files(" + lstPathXml.Count + ")..."));
+      s32Index = 0;
       foreach(String str in lstPathXml)
       {
         s32Progress++;
+        s32Index++;
         /* Code needed, extracting memberdefs from *.xml */
-        vidOnWorkerProgress(this, new Task.TaskEventArgs(this.strId?? String.Empty, Task.Constants.strCancel, s32Progress, String.Empty));  /* Status shall be added */
+        System.Threading.Thread.Sleep(100);
+        vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Extracting memberdefs [" + s32Index + "/" + lstPathXml.Count + "]"));
       }
 
-      vidOnWorkerLog(this, new Task.TaskEventArgs(this.strId?? String.Empty, String.Empty, Task.Constants.s32ProgressCountInvalid, "## Saving memberdefs on xml files(" + lstPathXml.Count + ")..."));
+      vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "## Saving memberdefs on xml files(" + lstPathXml.Count + ")..."));
+      s32Index = 0;
       foreach(String str in lstPathXml)
       {
         s32Progress++;
+        s32Index++;
         /* Code needed, saving memberdef items on *.xml */
-        vidOnWorkerProgress(this, new Task.TaskEventArgs(this.strId?? String.Empty, Task.Constants.strCancel, s32Progress, String.Empty));  /* Status shall be added */
+        System.Threading.Thread.Sleep(100);
+        vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Saving memberdefs[" + s32Index + "/" + lstPathXml.Count + "]"));
       }
 
       foreach(String exception in lstException)
       {
-        vidOnWorkerLog(this, new Task.TaskEventArgs(this.strId?? String.Empty, String.Empty, Task.Constants.s32ProgressCountInvalid, "[Exception][" + Util.Debug.strGetMethodNme() + "] " + exception.ToString()));
+        vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "[Exception][" + Util.Debug.strGetMethodNme() + "] " + exception.ToString()));
       }
     }
   };
