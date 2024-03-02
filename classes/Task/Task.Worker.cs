@@ -21,10 +21,10 @@ namespace Task
   public abstract class Worker
   {
     public String strId = String.Empty; /**< A String object holding the ID of a Worker. */
-    public event EventHandler<TaskEventArgs>? ehWorkerEntry;    /**< An event handler for event entry invoked from task. */
-    public event EventHandler<TaskEventArgs>? ehWorkerProgress; /**< An event handler for event progress invoked from task. */
-    public event EventHandler<TaskEventArgs>? ehWorkerLog;      /**< An event handler for event log invoked from task. */
-    public event EventHandler<TaskEventArgs>? ehWorkerExit;     /**< An event handler for event exit invoked from task. */
+    public event EventHandler<TaskEventEntryArgs>? ehWorkerEntry;    /**< An event handler for event entry invoked from task. */
+    public event EventHandler<TaskEventProgressArgs>? ehWorkerProgress; /**< An event handler for event progress invoked from task. */
+    public event EventHandler<TaskEventLogArgs>? ehWorkerLog;      /**< An event handler for event log invoked from task. */
+    public event EventHandler<TaskEventExitArgs>? ehWorkerExit;     /**< An event handler for event exit invoked from task. */
 
     /**
     * @brief A public abstract method to start task, e.g., Background, Service.  
@@ -62,7 +62,7 @@ namespace Task
     */
     protected virtual void vidOnWorkerEntry(
       object? sender,
-      TaskEventArgs e
+      TaskEventEntryArgs e
       )
     {
       ehWorkerEntry?.Invoke(this, e);
@@ -71,13 +71,13 @@ namespace Task
     /**
     * @brief A protected virtual method to invoke progress event for inherited classes, e.g., Background, Service.  
     * @param sender A object? object holding caller object.
-    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @param e A TaskEventEntryArgs object holding event arguments.
     * @see Task.Background
     * @see Task.Service
     */
     protected virtual void vidOnWorkerProgress(
       object? sender,
-      TaskEventArgs e
+      TaskEventProgressArgs e
       )
     {
       ehWorkerProgress?.Invoke(this, e);
@@ -86,13 +86,13 @@ namespace Task
     /**
     * @brief A protected virtual method to invoke log event for inherited classes, e.g., Background, Service.  
     * @param sender A object? object holding caller object.
-    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @param e A TaskEventLogArgs object holding event arguments.
     * @see Task.Background
     * @see Task.Service
     */
     protected virtual void vidOnWorkerLog(
       object? sender,
-      TaskEventArgs e
+      TaskEventLogArgs e
       )
     {
       ehWorkerLog?.Invoke(this, e);
@@ -101,13 +101,13 @@ namespace Task
     /**
     * @brief A protected virtual method to invoke exit event for inherited classes, e.g., Background, Service.  
     * @param sender A object? object holding caller object.
-    * @param TaskEventArgs A TaskEventArgs object holding event arguments.
+    * @param e A TaskEventExitArgs object holding event arguments.
     * @see Task.Background
     * @see Task.Service
     */
     protected virtual void vidOnWorkerExit(
       object? sender,
-      TaskEventArgs e
+      TaskEventExitArgs e
       )
     {
       ehWorkerExit?.Invoke(this, e);
@@ -157,11 +157,11 @@ namespace Task
         this.bgwWorker.WorkerReportsProgress = true;
         this.bgwWorker.WorkerSupportsCancellation = true;
         this.bgwWorker.RunWorkerAsync();
-        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : try to start..."));
+        vidOnWorkerLog(this, new TaskEventLogArgs(this.strId?? String.Empty, @"[" + this.strId + @"] : try to start..."));
       }
       else
       {
-        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : no way to start, it's busy..."));
+        vidOnWorkerLog(this, new TaskEventLogArgs(this.strId?? String.Empty, @"[" + this.strId + @"] : no way to start, it's busy..."));
       }
     }
 
@@ -175,11 +175,11 @@ namespace Task
       if (this.bgwWorker.IsBusy)
       {
         this.bgwWorker.CancelAsync();
-        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : try to cancel..."));
+        vidOnWorkerLog(this, new TaskEventLogArgs(this.strId?? String.Empty, @"[" + this.strId + @"] : try to cancel..."));
       }
       else
       {
-        vidOnWorkerLog(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : no way to cancel, it's not busy..."));
+        vidOnWorkerLog(this, new TaskEventLogArgs(this.strId?? String.Empty, @"[" + this.strId + @"] : no way to cancel, it's not busy..."));
       }
     }
 
@@ -215,7 +215,7 @@ namespace Task
       RunWorkerCompletedEventArgs e
       )
     {
-      vidOnWorkerExit(this, new TaskEventArgs(this.strId?? String.Empty, Constants.strExecute, Constants.s32ProgressCountInvalid, @"[" + this.strId + @"] : invoke event exit..."));
+      vidOnWorkerExit(this, new TaskEventExitArgs(this.strId?? String.Empty, Constants.strExecute, @"[" + this.strId + @"] : invoke event exit..."));
       return;
     }
     protected readonly BackgroundWorker bgwWorker;  /**< A BackgroundWorker object to process background task. */

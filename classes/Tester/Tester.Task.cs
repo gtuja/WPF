@@ -9,7 +9,7 @@ namespace Tester
   {
     protected override void vidDoWork(object? sender, DoWorkEventArgs e)
     {
-      vidOnWorkerEntry(this, new TaskEventArgs(this.strId?? String.Empty, Constants.strCancel, 100, @"[" + this.strId + @"] : invoke event entry..."));
+      vidOnWorkerEntry(this, new TaskEventEntryArgs(this.strId?? String.Empty, Constants.strCancel, 100, @"[" + this.strId + @"] : invoke event entry..."));
 
       for(Int32 i = 0; i < 100; i++)
       {
@@ -18,7 +18,7 @@ namespace Tester
           e.Cancel = true;
           break;
         }
-        vidOnWorkerProgress(this, new TaskEventArgs(this.strId?? String.Empty, String.Empty, i, @"[" + this.strId + @"] : invoke event progress..."));
+        vidOnWorkerProgress(this, new TaskEventProgressArgs(this.strId?? String.Empty, i, @"Extracting compounds[" + i + "/" + 100 + "]"));
         System.Threading.Thread.Sleep(1000);
       }
       return;
