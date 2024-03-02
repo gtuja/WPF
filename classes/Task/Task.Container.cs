@@ -23,12 +23,13 @@ namespace Task
   * @see Task.Background
   * @see Task.Service
   */
-  public class Container(Button btnExecute, ProgressBar pbProgress, RichTextBox rtbLog)
+  public class Container(Button btnExecute, ProgressBar pbProgress, RichTextBox rtbLog, Label lblStatus)
   {
     private readonly Dictionary<String, Task.Worker> dictWorker = []; /**< A private Dictionary object holding tasks(workers). */
     private readonly ProgressBar pbProgress = pbProgress;             /**< A private ProgressBar object to be updated by event(progress) invoked by task. */
     private readonly RichTextBox rtbLog = rtbLog;                     /**< A private RichTextBox object to be updated by event(log) invoked by task. */
     private readonly Button btnExecute = btnExecute;                  /**< A private Button object to be updated by event(entry, exit) invoked by task. */
+    private readonly Label lblStatus = lblStatus;                  /**< A private Button object to be updated by event(entry, exit) invoked by task. */
 
     /**
     * @brief A public method to add a worker.  
@@ -108,19 +109,17 @@ namespace Task
     /**
     * @brief A public method to handle entry event invoked by task.  
     * @param sender A object? object of sender.
-    * @param e A TaskEventArgs object holding event arguments.
-    * @note
-    *   TaskEventArgs(e) might be changed on each of event, it might be implemented further feature.
+    * @param e A TaskEventEntryArgs object holding event arguments.
     */
     private void vidHandleTaskEntry(
       object? sender,
-      TaskEventArgs e
+      TaskEventEntryArgs e
       )
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
         new Action(() => { 
-          this.pbProgress.Maximum = e.s32Progress;
+          this.pbProgress.Maximum = e.s32ProgressMax;
           this.btnExecute.Content = e.strContent;
           UI.vidAppendLog(this.rtbLog, e.strLog);
         }));
@@ -130,46 +129,48 @@ namespace Task
     /**
     * @brief A public method to handle progress event invoked by task.  
     * @param sender A object? object of sender.
-    * @param e A TaskEventArgs object holding event arguments.
+    * @param e A TaskEventProgressArgs object holding event arguments.
     * @note
-    *   TaskEventArgs(e) might be changed on each of event, it might be implemented further feature.
     */
-    private void vidHandleTaskProgress(object? sender, TaskEventArgs e)
+    private void vidHandleTaskProgress(
+      object? sender,
+      TaskEventProgressArgs e
+      )
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
         new Action(() => { 
           this.pbProgress.Value = e.s32Progress;
-          UI.vidAppendLog(this.rtbLog, e.strLog);
+          this.lblStatus.Content = e.strStatus;
         }));
-      return;
     }
 
     /**
     * @brief A public method to handle log event invoked by task.  
     * @param sender A object? object of sender.
-    * @param e A TaskEventArgs object holding event arguments.
-    * @note
-    *   TaskEventArgs(e) might be changed on each of event, it might be implemented further feature.
+    * @param e A TaskEventLogArgs object holding event arguments.
     */
-    private void vidHandleTaskLog(object? sender, TaskEventArgs e)
+    private void vidHandleTaskLog(
+      object? sender,
+      TaskEventLogArgs e
+      )
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
         new Action(() => { 
           UI.vidAppendLog(this.rtbLog, e.strLog);
         }));
-      return;
     }
 
     /**
     * @brief A public method to handle exit event invoked by task.  
     * @param sender A object? object of sender.
-    * @param e A TaskEventArgs object holding event arguments.
-    * @note
-    *   TaskEventArgs(e) might be changed on each of event, it might be implemented further feature.
+    * @param e A TaskEventExitArgs object holding event arguments.
     */
-    private void vidHandleTaskExit(object? sender, TaskEventArgs e)
+    private void vidHandleTaskExit(
+      object? sender,
+      TaskEventExitArgs e
+      )
     {
       Application.Current.Dispatcher.BeginInvoke(
         DispatcherPriority.Background,
@@ -177,7 +178,6 @@ namespace Task
           this.btnExecute.Content = e.strContent;
           UI.vidAppendLog(this.rtbLog, e.strLog);
         }));
-      return;
     }
   };
 };
