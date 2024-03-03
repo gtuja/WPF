@@ -154,8 +154,14 @@ namespace Task
 
       if (this.dictWorker.ContainsKey(strId))
       {
-        this.dictWorker[strId].vidStop();
-        enuReturn = enuReturnType.True;
+        if (this.dictWorker[strId].bIsBusy())
+        {
+          enuReturn = enuReturnType.True;
+        }
+        else
+        {
+          enuReturn = enuReturnType.False;
+        }
       }
       else
       {
