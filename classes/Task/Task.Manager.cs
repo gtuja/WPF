@@ -34,64 +34,111 @@ namespace Task
     /**
     * @brief A public method to add a worker.  
     * @param wrkrWorker A Task.Worker object to be added.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     * @see vidHandleTaskEntry
     * @see vidHandleTaskProgress
     * @see vidHandleTaskLog
     * @see vidHandleTaskExit
     */
-    public void vidRegister(
+    public enuReturnType enuRegister(
       Task.Worker wrkrWorker
       )
     {
-      wrkrWorker.ehWorkerEntry += vidHandleTaskEntry;
-      wrkrWorker.ehWorkerProgress += vidHandleTaskProgress;
-      wrkrWorker.ehWorkerLog += vidHandleTaskLog;
-      wrkrWorker.ehWorkerExit += vidHandleTaskExit;
-      this.dictWorker.Add(wrkrWorker.strId, wrkrWorker);
+      enuReturnType enuReturn;
+      
+      if (this.dictWorker.ContainsKey(wrkrWorker.strId))
+      {
+        vidHandleTaskLog(this, new TaskEventLogArgs(wrkrWorker.strId, "[XCPTN] " + Util.Debug.strGetMethodNme() + " -> [" + wrkrWorker.strId  + "] is already exist.."));
+        enuReturn = enuReturnType.NotRegistered;
+      }
+      else
+      {
+        wrkrWorker.ehWorkerEntry += vidHandleTaskEntry;
+        wrkrWorker.ehWorkerProgress += vidHandleTaskProgress;
+        wrkrWorker.ehWorkerLog += vidHandleTaskLog;
+        wrkrWorker.ehWorkerExit += vidHandleTaskExit;
+        this.dictWorker.Add(wrkrWorker.strId, wrkrWorker);
+        enuReturn = enuReturnType.True;
+      }
+      return enuReturn;
     }
 
     /**
     * @brief A public method to start worker by ID.
     * @param strId A String object holding the ID of worker.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     */
-    public void vidStart(
+    public enuReturnType enuStart(
       String strId
       )
     {
-      this.dictWorker[strId].vidStart();
+      enuReturnType enuReturn;
+
+      if (this.dictWorker.ContainsKey(strId))
+      {
+        this.dictWorker[strId].vidStart();
+        enuReturn = enuReturnType.True;
+      }
+      else
+      {
+        vidHandleTaskLog(this, new TaskEventLogArgs(strId, "[XCPTN] " + Util.Debug.strGetMethodNme() + " -> [" + strId  + "] is not registered.."));
+        enuReturn = enuReturnType.NotRegistered;
+      }
+      return enuReturn;
     }
 
     /**
     * @brief A public method to pause worker by ID.
     * @param strId A String object holding the ID of worker.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     */
-    public void vidPause(
+    public enuReturnType enuPause(
       String strId
       )
     {
       vidHandleTaskLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));
+      return enuReturnType.NotImplemented;
     }
 
     /**
     * @brief A public method to resume worker by ID.
     * @param strId A String object holding the ID of worker.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     */
-    public void vidResume(
+    public enuReturnType enuResume(
       String strId
       )
     {
       vidHandleTaskLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));
+      return enuReturnType.NotImplemented;
     }
 
     /**
     * @brief A public method to stop worker by ID.
     * @param strId A String object holding the ID of worker.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     */
-    public void vidStop(
+    public enuReturnType enuStop(
       String strId
       )
     {
-      this.dictWorker[strId].vidStop();
+      enuReturnType enuReturn;
+
+      if (this.dictWorker.ContainsKey(strId))
+      {
+        this.dictWorker[strId].vidStop();
+        enuReturn = enuReturnType.True;
+      }
+      else
+      {
+        enuReturn = enuReturnType.NotRegistered;
+      }
+      return enuReturn;
     }
 
     /**
@@ -99,16 +146,29 @@ namespace Task
     * @param strId A String object holding the ID of worker.
     * @return Boolean worker is busy or not.
     */
-    public Boolean bIsBusy(
+    public enuReturnType enuIsBusy(
       String strId
       )
     {
-      return this.dictWorker[strId].bIsBusy();
+      enuReturnType enuReturn;
+
+      if (this.dictWorker.ContainsKey(strId))
+      {
+        this.dictWorker[strId].vidStop();
+        enuReturn = enuReturnType.True;
+      }
+      else
+      {
+        enuReturn = enuReturnType.NotRegistered;
+      }
+      return enuReturn;
     }
 
     /**
     * @brief A public method to deregister worker by ID.
     * @param strId A String object holding the ID of worker.
+    * @return enuReturn A Task.enuReturnType object represent the return of method.
+    * @see Task.enuReturnType
     * @see vidHandleTaskEntry
     * @see vidHandleTaskProgress
     * @see vidHandleTaskLog
@@ -116,15 +176,36 @@ namespace Task
     * @note
     *   This method is not tested currently, it might be used further feature.
     */
-    private void vidDeregister(
+    private Task.enuReturnType enuDeregister(
       String strId
       )
     {
-      this.dictWorker[strId].ehWorkerEntry -= vidHandleTaskEntry;
-      this.dictWorker[strId].ehWorkerProgress -= vidHandleTaskProgress;
-      this.dictWorker[strId].ehWorkerLog -= vidHandleTaskLog;
-      this.dictWorker[strId].ehWorkerExit -= vidHandleTaskExit;
-      this.dictWorker.Remove(strId);
+      enuReturnType enuReturn;
+
+      if (this.dictWorker.ContainsKey(strId))
+      {
+        this.dictWorker[strId].ehWorkerEntry -= vidHandleTaskEntry;
+        this.dictWorker[strId].ehWorkerProgress -= vidHandleTaskProgress;
+        this.dictWorker[strId].ehWorkerLog -= vidHandleTaskLog;
+        this.dictWorker[strId].ehWorkerExit -= vidHandleTaskExit;
+        this.dictWorker.Remove(strId);
+        enuReturn = enuReturnType.True;
+      }
+      else
+      {
+        enuReturn = enuReturnType.NotRegistered;
+      }
+      return enuReturn;
+    }
+
+    /**
+    * @brief A public method to get worker is registered or not by ID.
+    * @param strId A String object holding the ID of worker.
+    * @return True/False
+    */
+    public Boolean bIsRegistered(String strId)
+    {
+      return this.dictWorker.ContainsKey(strId);
     }
 
     /**
@@ -144,7 +225,6 @@ namespace Task
           this.btnExecute.Content = e.strContent;
           UI.vidAppendLog(this.rtbLog, e.strLog);
         }));
-      return;
     }
 
     /**

@@ -22,10 +22,20 @@ namespace Task
   };
 
   /**
+  * @brief A public enum holding return type of method on namespace.
+  */
+  public enum enuReturnType : Byte {
+    True = 0x00,    /**< True. */
+    False,          /**< False. */
+    NotRegistered,  /**< Task is not registered. */
+    NotImplemented, /**< Method is not implemented. */
+  };
+
+  /**
   * @brief A public class holding task event arguments.
   * @see System.EventArgs
   */
-  public class TaskEventArgs(String strId) : System.EventArgs
+  public abstract class TaskEventArgs(String strId) : System.EventArgs
   {
     public String strId {get; set;} = strId;            /**< A string object holding the ID of task. */
   };
