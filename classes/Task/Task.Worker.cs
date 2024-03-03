@@ -34,7 +34,7 @@ namespace Task
     *   The class inherited should override this method.  
     */
     public abstract void vidStart();
-    
+
     /**
     * @brief A public abstract method to stop task, e.g., Background, Service.  
     * @see Task.Background
@@ -166,6 +166,30 @@ namespace Task
     }
 
     /**
+    * @brief A public abstract method to pause task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public virtual void vidPause()
+    {
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
+    }
+
+    /**
+    * @brief A public abstract method to resume task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public virtual void vidResume()
+    {
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
+    }
+
+    /**
     * @brief An public abstract method to stop task, e.g., Background, Service.  
     * @see Task.Background
     * @see Task.Service
@@ -247,6 +271,30 @@ namespace Task
       vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
     }
 
+    /**
+    * @brief A public abstract method to pause task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public virtual void vidPause()
+    {
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
+    }
+
+    /**
+    * @brief A public abstract method to resume task, e.g., Background, Service.  
+    * @see Task.Background
+    * @see Task.Service
+    * @note
+    *   The class inherited should override this method.  
+    */
+    public virtual void vidResume()
+    {
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
+    }
+
     public override void vidStop()
     {
       vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
@@ -260,12 +308,9 @@ namespace Task
       return bReturn;
     }
 
-    protected abstract void vidDoWork(object? sender, DoWorkEventArgs e);
+    protected abstract void vidDoWork(object? sender, EventArgs e);
     
-    protected virtual void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
-    {
-      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
-    }
+    protected abstract void vidCompleted(object? sender, EventArgs e);
   };
 };
 

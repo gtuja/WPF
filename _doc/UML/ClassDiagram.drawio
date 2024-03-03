@@ -1,42 +1,217 @@
 <mxfile host="65bd71144e">
-    <diagram id="dzH8AbBxTpVTIcs8sDzF" name="Page-1">
-        <mxGraphModel dx="2653" dy="520" grid="1" gridSize="10" guides="1" tooltips="0" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <diagram id="dzH8AbBxTpVTIcs8sDzF" name="Task">
+        <mxGraphModel dx="1366" dy="1124" grid="1" gridSize="10" guides="1" tooltips="0" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="98" value="Task.TaskEventArgs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-                    <mxGeometry x="-1600" y="120" width="160" height="80" as="geometry">
-                        <mxRectangle x="-1040" y="200" width="160" height="30" as="alternateBounds"/>
+                <mxCell id="124" value="Worker {abstract}" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="1080" y="360" width="440" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="125" value="+ ehWorkerEntry: event EventHandler&lt;TaskEventEntryArgs&gt;?&#10;+ ehWorkerProgress: event EventHandler&lt;TaskEventProgressArgs&gt;?&#10;+ ehWorkerLog: event EventHandler&lt;TaskEventLogArgs&gt;?&#10;+ ehWorkerExit: event EventHandler&lt;TaskEventExitArgs&gt;?" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="124">
+                    <mxGeometry y="26" width="440" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="126" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="124">
+                    <mxGeometry y="100" width="440" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="127" value="+ vidStart() {abstract}&#10;+ vidStop() {abstract}&#10;+ bIsBusy(): Boolean {abstract}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2" vertex="1" parent="124">
+                    <mxGeometry y="108" width="440" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="Background {abstract}" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="678" y="739" width="440" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="# bgwWorker: BackgroundWorker" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="128">
+                    <mxGeometry y="26" width="440" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="130" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="128">
+                    <mxGeometry y="50" width="440" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="+ vidStart() {virtual}&#10;+ vidStop() {virtual}&#10;+ vidPause() {virtual}&#10;+ vidResume) {virtual}&#10;+ bIsBusy(): Boolean {override}&#10;# vidDoWork(sender: object?, e: DoWorkEventArgs) {abstract}&#10;# vidCompleted(sender: object?, e: RuneWorkerCompletedEventArgs) {virtual}&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="128">
+                    <mxGeometry y="58" width="440" height="122" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="128" target="127">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="928" y="682" as="sourcePoint"/>
+                        <mxPoint x="900" y="552" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="898" y="700"/>
+                            <mxPoint x="1300" y="700"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="99" value="+ strContent: String&#10;+ s32Progress: Int32&#10;+ strLog: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="98" vertex="1">
-                    <mxGeometry y="26" width="160" height="54" as="geometry"/>
+                <mxCell id="135" value="Service {abstract} [TBD]" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="1156" y="739" width="440" height="180" as="geometry"/>
                 </mxCell>
-                <mxCell id="108" value="Task.Worker {abstract}" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-                    <mxGeometry x="-1321" y="79" width="361" height="260" as="geometry"/>
+                <mxCell id="136" value="# tThread: Thread [TBD]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="135">
+                    <mxGeometry y="26" width="440" height="24" as="geometry"/>
                 </mxCell>
-                <mxCell id="109" value="+ s32ProgressCountInvalid: Int32 = -1&#10;+ strExecute: String = @&quot;Execute&quot;&#10;+ strCancel: String = @&quot;Cancel&quot;&#10;+ ehWorkerEntry: event EventHandler&lt;TaskEventArgs&gt;?&#10;+ ehWorkerProgress: event EventHandler&lt;TaskEventArgs&gt;?&#10;+ ehWorkerLog: event EventHandler&lt;TaskEventArgs&gt;?&#10;+ ehWorkerExit: event EventHandler&lt;TaskEventArgs&gt;?" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="108" vertex="1">
-                    <mxGeometry y="26" width="361" height="114" as="geometry"/>
+                <mxCell id="137" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="135">
+                    <mxGeometry y="50" width="440" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="110" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="108" vertex="1">
-                    <mxGeometry y="140" width="361" height="8" as="geometry"/>
+                <mxCell id="138" value="+ vidStart() {virtual}&#10;+ vidStop() {virtual}&#10;+ vidPause() {virtual}&#10;+ vidResume) {virtual}&#10;+ bIsBusy(): Boolean {virtual}&#10;# vidDoWork(sender: object?, e: EventArgs) {abstract}&#10;# vidCompleted(sender: object?, e: EventArgs) {abstract}&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="135">
+                    <mxGeometry y="58" width="440" height="122" as="geometry"/>
                 </mxCell>
-                <mxCell id="111" value="# vidOnWorkerEntry(e: TaskEventArgs)&#10;# vidOnWorkerProgress(e: TaskEventArgs)&#10;# vidOnWorkerLog(e: TaskEventArgs)&#10;# vidOnWorkerExit(e: TaskEventArgs)&#10;+ vidStart()&#10;+ vidCancel()&#10;+ bIsBusy() : Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=2" parent="108" vertex="1">
-                    <mxGeometry y="148" width="361" height="112" as="geometry"/>
+                <mxCell id="140" value="TemplateBackground" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="678" y="979" width="440" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="118" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;br&gt;&lt;b&gt;System.EventArgs&lt;/b&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="-1590" y="40" width="140" height="50" as="geometry"/>
+                <mxCell id="142" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="140">
+                    <mxGeometry y="26" width="440" height="8" as="geometry"/>
                 </mxCell>
-                <mxCell id="119" value="" style="endArrow=block;endSize=16;endFill=0;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="98" target="118">
+                <mxCell id="143" value="# vidDoWork(sender: object?, e: DoWorkEventArgs) {override}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="140">
+                    <mxGeometry y="34" width="440" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="140" target="131">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="-1440" y="181" as="sourcePoint"/>
-                        <mxPoint x="-1360" y="201" as="targetPoint"/>
+                        <mxPoint x="1028" y="576" as="sourcePoint"/>
+                        <mxPoint x="1188" y="576" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="120" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=1.017;entryY=0.281;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="109" target="99">
+                <mxCell id="145" value="Manager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="490" y="360" width="440" height="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="146" value="- dictWorker : Dictionary&lt;String, Task.Worker&gt;&#10;- btnExecute: Button&#10;- pbProgress: ProgressBar&#10;- rtbLog: RichTextBar&#10;- lblStatus: Label&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="145">
+                    <mxGeometry y="26" width="440" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="147" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="145">
+                    <mxGeometry y="110" width="440" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="148" value="+ enuRegister(worker: Task.Worker): enuReturnType&#10;+ enuStart(strId: String): enuReturnType&#10;+ enuPause(strId: String): enuReturnType&#10;+ enuResume(strId: String): enuReturnType&#10;+ enuStop(strId: String): enuReturnType&#10;+ enuIsBusy(strId: String): enuReturnType&#10;+ enuDeregister(strId: String): enuReturnType&#10;+ bIsRegistered(strId: String): Boolean&#10;- vidHandleTaskEntry(sender: object?, e: TaskEventEntryArgs)&#10;- vidHandleTaskProgress(sender: object?, e: TaskEventProgressArgs)&#10;- vidHandleTaskLog(sender: object?, e: TaskEventLogArgs)&#10;- vidHandleTaskExit(sender: object?, e: TaskEventExitArgs)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="145">
+                    <mxGeometry y="118" width="440" height="182" as="geometry"/>
+                </mxCell>
+                <mxCell id="177" value="" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=20;dashed=1;" vertex="1" parent="1">
+                    <mxGeometry x="20" y="18" width="1512" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="178" value="Constants" style="swimlane;fontStyle=7;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="302" y="78" width="238" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="179" value="+ s32ProgressCountInvalid: Int32 = -1&#10;+ strExecute: String = &quot;Execute&quot;&#10;+ strstrCancel: String = &quot;Cancel&quot;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=6" vertex="1" parent="178">
+                    <mxGeometry y="26" width="238" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="180" value="TaskEventArgs {abstract}" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="582" y="78" width="198" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="181" value="+ strId: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="180">
+                    <mxGeometry y="26" width="198" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="182" value="TaskEventEntryArgs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="582" y="198" width="198" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="183" value="+ strContent: String&#10;+ s32Progress: Int32&#10;+ strLog: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="182">
+                    <mxGeometry y="26" width="198" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="184" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;" edge="1" parent="1" source="182">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="-1370" y="220" as="sourcePoint"/>
-                        <mxPoint x="-1210" y="220" as="targetPoint"/>
+                        <mxPoint x="542" y="388" as="sourcePoint"/>
+                        <mxPoint x="682" y="128" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="185" value="TaskEventProgressArgs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="822" y="198" width="198" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="186" value="+ s32Progress: Int32&#10;+ strStatus: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="185">
+                    <mxGeometry y="26" width="198" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="187" value="TaskEventLogArgs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="1062" y="198" width="198" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="188" value="+ strStatus: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="187">
+                    <mxGeometry y="26" width="198" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="189" value="TaskEventExitArgs" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="1302" y="198" width="198" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="190" value="+ strContent: String&#10;+ strLog: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="189">
+                    <mxGeometry y="26" width="198" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="191" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="185">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="312" y="318" as="sourcePoint"/>
+                        <mxPoint x="682" y="128" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="192" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="187">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="822.2325581395348" y="178" as="sourcePoint"/>
+                        <mxPoint x="682" y="128" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="193" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="189">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="852" y="148" as="sourcePoint"/>
+                        <mxPoint x="682" y="128" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="194" value="Task" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="27" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="195" value="" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="124" target="177">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="740" y="530" as="sourcePoint"/>
+                        <mxPoint x="900" y="530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="196" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="135">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="740" y="680" as="sourcePoint"/>
+                        <mxPoint x="1300" y="530" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1376" y="700"/>
+                            <mxPoint x="1300" y="700"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="197" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1.002;exitY=0.437;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="146" target="125">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="840" y="630" as="sourcePoint"/>
+                        <mxPoint x="1000" y="630" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="198" value="" style="endArrow=open;endSize=12;dashed=1;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.49;exitY=0.001;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="145" target="177">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="900" y="540" as="sourcePoint"/>
+                        <mxPoint x="1060" y="540" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="199" value="MainWindow" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="360" width="160" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="200" value="- btnExecute: Button&#10;- pbProgress: ProgressBar&#10;- rtbLog: RichTextBox&#10;- lblStatus: Label&#10;- tmManager: Task.Manager" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="199">
+                    <mxGeometry y="26" width="160" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="201" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="199">
+                    <mxGeometry y="120" width="160" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="202" value="- vidBtnExecuteClick&#10;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="199">
+                    <mxGeometry y="128" width="160" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="203" value="" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.421;entryY=1.032;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="199" target="205">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="530" y="530" as="sourcePoint"/>
+                        <mxPoint x="121.21199999999976" y="171.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="204" value="&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;br&gt;Task.enuReturnType" style="swimlane;fontStyle=0;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="54" y="78" width="158" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="205" value="&lt;div style=&quot;color: rgb(204, 204, 204); background-color: rgb(31, 31, 31); font-family: Consolas, &amp;quot;Courier New&amp;quot;, monospace; font-size: 14px; line-height: 19px;&quot;&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;True = 0x00&lt;/div&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;False&lt;/div&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;NotRegistered&lt;/div&gt;&lt;div style=&quot;line-height: 19px;&quot;&gt;NotImplemented&lt;/div&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="204">
+                    <mxGeometry y="40" width="158" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="206" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.998;exitY=0.455;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="200" target="146">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="600" y="470" as="sourcePoint"/>
+                        <mxPoint x="760" y="470" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="207" value="Update Controls" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=0.003;exitY=0.83;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=1.003;entryY=0.709;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" edge="1" parent="1" source="148" target="200">
+                    <mxGeometry x="0.307" y="-5" width="160" relative="1" as="geometry">
+                        <mxPoint x="250" y="560" as="sourcePoint"/>
+                        <mxPoint x="410" y="560" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="208" value="Control Tasks(Register, Start, Pause, Resume)" style="endArrow=open;endSize=12;dashed=1;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.001;entryY=0.253;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="202" target="148">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="350" y="450" as="sourcePoint"/>
+                        <mxPoint x="510" y="450" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>
