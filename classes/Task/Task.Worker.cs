@@ -36,13 +36,13 @@ namespace Task
     public abstract void vidStart();
     
     /**
-    * @brief A public abstract method to cancel task, e.g., Background, Service.  
+    * @brief A public abstract method to stop task, e.g., Background, Service.  
     * @see Task.Background
     * @see Task.Service
     * @note
     *   The class inherited should override this method.  
     */
-    public abstract void vidCancel();
+    public abstract void vidStop();
     
     /**
     * @brief A public abstract method to get task is busy or not, e.g., Background, Service.  
@@ -166,11 +166,11 @@ namespace Task
     }
 
     /**
-    * @brief An public abstract method to cancel task, e.g., Background, Service.  
+    * @brief An public abstract method to stop task, e.g., Background, Service.  
     * @see Task.Background
     * @see Task.Service
     */
-    public override void vidCancel()
+    public override void vidStop()
     {
       if (this.bgwWorker.IsBusy)
       {
@@ -231,30 +231,32 @@ namespace Task
   {
     public Service()
     {
-      this.strName = String.Empty;
+      this.strId = String.Empty;
     }
     
     public Service(
-      String strName
+      String strId
     )
     {
-      this.strName = strName;
+      this.strId = strId;
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
     }
 
     public override void vidStart()
     {
-      /* TBD */
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
     }
 
-    public override void vidCancel()
+    public override void vidStop()
     {
-      /* TBD */
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
     }
 
     public override Boolean bIsBusy()
     {
       Boolean bReturn = false;
-      /* TBD */
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
+      
       return bReturn;
     }
 
@@ -262,10 +264,8 @@ namespace Task
     
     protected virtual void vidCompleted(object? sender, RunWorkerCompletedEventArgs e)
     {
-      /* TBD */
+      vidOnWorkerLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));      
     }
-
-    public String strName { get; set; }
   };
 };
 

@@ -1,11 +1,10 @@
 using System.ComponentModel;
-using Task;
 
 #pragma warning disable IDE1006 // Naming Styles
 
-namespace Tester
+namespace Task
 {
-  public class TesterBackground(String strName) : Task.Background(strName)
+  public class TemplateBackground(String strName) : Task.Background(strName)
   {
     protected override void vidDoWork(object? sender, DoWorkEventArgs e)
     {
