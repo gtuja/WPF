@@ -82,7 +82,7 @@ public partial class MainWindow : Window
       this.strTargetFolderXml = strTargetFolder;
       this.tbTargetFolderXml.Text = strTargetFolder;
       this.btnExecute.IsEnabled = true;
-      this.tmManager.vidRegister(new Dxgn.Report(this.strIdTaskDxoygenParser, this.strTargetFolderCode, this.strTargetFolderXml));
+      this.tmManager.enuRegister(new Dxgn.Report(this.strIdTaskDxoygenParser, this.strTargetFolderCode, this.strTargetFolderXml));
     }
   }
 
@@ -91,13 +91,20 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    if (this.tmManager.bIsBusy(this.strIdTaskDxoygenParser))
+    if(this.tmManager.bIsRegistered(this.strIdTaskDxoygenParser))
     {
-      this.tmManager.vidStop(this.strIdTaskDxoygenParser);
-    }
-    else
-    {
-      this.tmManager.vidStart(this.strIdTaskDxoygenParser);
+      switch(this.tmManager.enuIsBusy(this.strIdTaskDxoygenParser))
+      {
+        case Task.enuReturnType.True :
+          this.tmManager.enuStop(this.strIdTaskDxoygenParser);
+          break;
+        case Task.enuReturnType.False :
+          this.tmManager.enuStart(this.strIdTaskDxoygenParser);
+          break;
+        default :
+          MessageBox.Show("There is something wrong, check the log...", "SOFT ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+          break;
+      }
     }
   }
 };
