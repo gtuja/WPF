@@ -10,7 +10,7 @@ using Util;
  * @brief A namespace for task control.
  * @see Task.Constants
  * @see Task.TaskEventArgs
- * @see Task.Container
+ * @see Task.Manager
  * @see Task.Worker
  * @see Task.Background
  * @see Task.Service
@@ -23,7 +23,7 @@ namespace Task
   * @see Task.Background
   * @see Task.Service
   */
-  public class Container(Button btnExecute, ProgressBar pbProgress, RichTextBox rtbLog, Label lblStatus)
+  public class Manager(Button btnExecute, ProgressBar pbProgress, RichTextBox rtbLog, Label lblStatus)
   {
     private readonly Dictionary<String, Task.Worker> dictWorker = []; /**< A private Dictionary object holding tasks(workers). */
     private readonly ProgressBar pbProgress = pbProgress;             /**< A private ProgressBar object to be updated by event(progress) invoked by task. */
@@ -39,7 +39,7 @@ namespace Task
     * @see vidHandleTaskLog
     * @see vidHandleTaskExit
     */
-    public void vidAdd(
+    public void vidRegister(
       Task.Worker wrkrWorker
       )
     {
@@ -62,14 +62,36 @@ namespace Task
     }
 
     /**
-    * @brief A public method to cancel worker by ID.
+    * @brief A public method to pause worker by ID.
     * @param strId A String object holding the ID of worker.
     */
-    public void vidCancel(
+    public void vidPause(
       String strId
       )
     {
-      this.dictWorker[strId].vidCancel();
+      vidHandleTaskLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));
+    }
+
+    /**
+    * @brief A public method to resume worker by ID.
+    * @param strId A String object holding the ID of worker.
+    */
+    public void vidResume(
+      String strId
+      )
+    {
+      vidHandleTaskLog(this, new TaskEventLogArgs(strId, "[NI] " + Util.Debug.strGetMethodNme() + " -> is not implemented.."));
+    }
+
+    /**
+    * @brief A public method to stop worker by ID.
+    * @param strId A String object holding the ID of worker.
+    */
+    public void vidStop(
+      String strId
+      )
+    {
+      this.dictWorker[strId].vidStop();
     }
 
     /**
@@ -85,7 +107,7 @@ namespace Task
     }
 
     /**
-    * @brief A public method to remove worker by ID.
+    * @brief A public method to deregister worker by ID.
     * @param strId A String object holding the ID of worker.
     * @see vidHandleTaskEntry
     * @see vidHandleTaskProgress
@@ -94,7 +116,7 @@ namespace Task
     * @note
     *   This method is not tested currently, it might be used further feature.
     */
-    private void vidRemove(
+    private void vidDeregister(
       String strId
       )
     {
@@ -103,7 +125,6 @@ namespace Task
       this.dictWorker[strId].ehWorkerLog -= vidHandleTaskLog;
       this.dictWorker[strId].ehWorkerExit -= vidHandleTaskExit;
       this.dictWorker.Remove(strId);
-      return;
     }
 
     /**
