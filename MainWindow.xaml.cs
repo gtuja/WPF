@@ -38,21 +38,28 @@ public partial class MainWindow : Window
     this.btnExecute = ButtonExecute;
     this.strTaskId = @"TesterBackground";
     this.tmManager = new Task.Manager(this.btnExecute, this.pbProgress, this.rtbLog, this.lblStatus);
-    this.tmManager.vidRegister(new Task.TemplateBackground(this.strTaskId));
+    this.tmManager.enuRegister(new Task.TemplateBackground(this.strTaskId));
   }
 
-  public void vidBtnExecuteClick(
+  private void vidBtnExecuteClick(
     object objSender,
     RoutedEventArgs reaEvent
   )
   {
-    if (this.tmManager.bIsBusy(this.strTaskId))
+    if (tmManager.bIsRegistered(this.strTaskId))
     {
-      this.tmManager.vidStop(this.strTaskId);
-    }
-    else
-    {
-      this.tmManager.vidStart(this.strTaskId);
+      switch(this.tmManager.enuIsBusy(this.strTaskId))
+      {
+        case Task.enuReturnType.True :
+          this.tmManager.enuStop(this.strTaskId);
+          break;
+        case Task.enuReturnType.False :
+          this.tmManager.enuStart(this.strTaskId);
+          break;
+        default :
+          MessageBox.Show("Something wrong check logs", "SOFT ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+          break;
+      }
     }
   }
 }
