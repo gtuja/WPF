@@ -31,12 +31,10 @@ public partial class MainWindow : Window
   private readonly RichTextBox rtbLog;
   private readonly Label lblStatus;
   private readonly String strIdTaskDxoygenParser;
-  private readonly Task.Container tcContainer;
+  private readonly Task.Manager tmManager;
 
   private String strTargetFolderCode;
   private String strTargetFolderXml;
-
-  private Dxgn.Report? rptDoxygenReport;
 
   public MainWindow()
   {
@@ -50,7 +48,7 @@ public partial class MainWindow : Window
     this.rtbLog = RichTextBoxLog;
     this.lblStatus = LabelStatus;
     this.strIdTaskDxoygenParser = @"[DxgnParser]";
-    this.tcContainer = new Task.Container(this.btnExecute, this.pbProgress, this.rtbLog, this.lblStatus);
+    this.tmManager = new(this.btnExecute, this.pbProgress, this.rtbLog, this.lblStatus);
     this.strTargetFolderCode = String.Empty;
     this.strTargetFolderXml = String.Empty;
   }
@@ -84,8 +82,7 @@ public partial class MainWindow : Window
       this.strTargetFolderXml = strTargetFolder;
       this.tbTargetFolderXml.Text = strTargetFolder;
       this.btnExecute.IsEnabled = true;
-      this.rptDoxygenReport = new Dxgn.Report(this.strIdTaskDxoygenParser, this.strTargetFolderCode, this.strTargetFolderXml);
-      this.tcContainer.vidAdd(this.rptDoxygenReport);
+      this.tmManager.vidRegister(new Dxgn.Report(this.strIdTaskDxoygenParser, this.strTargetFolderCode, this.strTargetFolderXml));
     }
   }
 
@@ -94,13 +91,13 @@ public partial class MainWindow : Window
     RoutedEventArgs reaEvent
   )
   {
-    if (this.tcContainer.bIsBusy(this.strIdTaskDxoygenParser))
+    if (this.tmManager.bIsBusy(this.strIdTaskDxoygenParser))
     {
-      this.tcContainer.vidCancel(this.strIdTaskDxoygenParser);
+      this.tmManager.vidStop(this.strIdTaskDxoygenParser);
     }
     else
     {
-      this.tcContainer.vidStart(this.strIdTaskDxoygenParser);
+      this.tmManager.vidStart(this.strIdTaskDxoygenParser);
     }
   }
 };

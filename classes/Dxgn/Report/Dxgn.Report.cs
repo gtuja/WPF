@@ -245,7 +245,14 @@ namespace Dxgn
       {
         s32Progress++;
         s32Index++;
+
         /* Code needed, extracting compound from index.xml */
+        if (this.bgwWorker.CancellationPending)
+        {
+          e.Cancel = true;
+          return;
+        }
+        
         System.Threading.Thread.Sleep(100);
         vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Extracting compounds [" + s32Index + "/" + lstElementCompound.Count + "]"));
       }
@@ -256,7 +263,13 @@ namespace Dxgn
       {
         s32Progress++;
         s32Index++;
+        
         /* Code needed, extracting memberdefs from *.xml */
+        if (this.bgwWorker.CancellationPending)
+        {
+          e.Cancel = true;
+          return;
+        }
         System.Threading.Thread.Sleep(100);
         vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Extracting memberdefs [" + s32Index + "/" + lstPathXml.Count + "]"));
       }
@@ -267,11 +280,17 @@ namespace Dxgn
       {
         s32Progress++;
         s32Index++;
+        
         /* Code needed, saving memberdef items on *.xml */
+        if (this.bgwWorker.CancellationPending)
+        {
+          e.Cancel = true;
+          return;
+        }
         System.Threading.Thread.Sleep(100);
         vidOnWorkerProgress(this, new Task.TaskEventProgressArgs(this.strId?? String.Empty, s32Progress, @"Saving memberdefs[" + s32Index + "/" + lstPathXml.Count + "]"));
       }
-
+      
       foreach(String exception in lstException)
       {
         vidOnWorkerLog(this, new Task.TaskEventLogArgs(this.strId?? String.Empty, "[Exception][" + Util.Debug.strGetMethodNme() + "] " + exception.ToString()));
